@@ -25,16 +25,39 @@
   <meta name="twitter:description" content="Kostenlose Wettervorhersage für jeden Ort weltweit – 72h und 14 Tage Prognose.">
   <meta name="twitter:image" content="https://helmutqualtinger.github.io/WetterVorschau/Rebstein-Panormam.jpg">
   <style>
+    /* ── Dark theme (default) ───────────────────────────────────────── */
     :root {
-      --page:   #0d1117; --card:   #161b22; --row:    #1a2233;
+      --page:   #0d1117; --row:    #1a2233;
       --header: #1e3a5f; --title:  #0d1f3c; --border: #2a3f5a;
       --divid:  #1e3a5f; --pri:    #e6edf3; --sec:    #8b949e;
       --min:    #6e7681; --accent: #58a6ff; --green:  #3fb950;
       --pill:   #79c0ff; --banner: #060d18;
+      --searchbar-bg: #161b22;
+      --glass-bg: linear-gradient(145deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 100%);
+      --glass-border: rgba(255,255,255,0.18);
+      --glass-shadow: 0 2px 8px rgba(0,0,0,0.40), inset 0 1px 0 rgba(255,255,255,0.15);
+      --glass-shadow-hover: 0 6px 18px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.20);
+      --scroll-bg: rgba(255,255,255,0.04);
+      --scroll-border: rgba(255,255,255,0.10);
       --banner-h: 260px;
       --card-w: 105px; --card-fs: 12px; --card-icon: 30px;
       --card-temp: 17px; --card-pad: 7px 5px;
       --section-pad: 18px 16px 10px;
+    }
+    /* ── Light theme ────────────────────────────────────────────────── */
+    [data-theme="light"] {
+      --page:   #ddeeff; --row:    #c8dff5;
+      --header: #a8c8e8; --title:  #1a6fc4; --border: rgba(0,80,160,0.25);
+      --divid:  #90b8d8; --pri:    #0d1a2a; --sec:    #3a5570;
+      --min:    #5577aa; --accent: #0550ae; --green:  #1a7f37;
+      --pill:   #0969da; --banner: #b0ccee;
+      --searchbar-bg: #c0d8f0;
+      --glass-bg: linear-gradient(145deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.35) 100%);
+      --glass-border: rgba(255,255,255,0.80);
+      --glass-shadow: 0 2px 8px rgba(0,60,120,0.18), inset 0 1px 0 rgba(255,255,255,0.90);
+      --glass-shadow-hover: 0 6px 18px rgba(0,60,120,0.28), inset 0 1px 0 rgba(255,255,255,0.95);
+      --scroll-bg: rgba(0,80,160,0.07);
+      --scroll-border: rgba(0,80,160,0.18);
     }
     @media (max-width: 600px) {
       :root {
@@ -54,12 +77,13 @@
     }
 
     * { box-sizing: border-box; }
-    body { margin:0; padding:0; background:var(--page); font-family:Arial,Helvetica,sans-serif; color:var(--pri); }
+    body { margin:0; padding:0; background:var(--page); font-family:Arial,Helvetica,sans-serif; color:var(--pri); transition:background .3s, color .3s; }
 
     #search-bar {
       display:flex; gap:8px; padding:12px 16px;
-      background:#161b22; border-bottom:1px solid var(--border);
+      background:var(--searchbar-bg); border-bottom:1px solid var(--border);
       position:sticky; top:0; z-index:100; flex-wrap:wrap;
+      transition: background .3s;
     }
     #location-input {
       flex:1; min-width:0; padding:9px 12px; background:var(--page);
@@ -82,6 +106,14 @@
       touch-action:manipulation;
     }
     #locate-btn:hover { background:var(--divid); }
+    #theme-btn {
+      padding:9px 12px; background:transparent;
+      border:1px solid var(--border); border-radius:6px;
+      color:var(--pri); cursor:pointer; font-size:16px;
+      line-height:1; touch-action:manipulation;
+      transition:border-color .2s, color .2s;
+    }
+    #theme-btn:hover { border-color:var(--accent); color:var(--accent); }
     #status { padding:16px 16px 0; color:var(--sec); font-size:14px; min-height:2em; }
 
     /* ── Report layout ─────────────────────────────────────────────── */
@@ -112,6 +144,8 @@
     }
     .w-section { padding:var(--section-pad); background:var(--page); }
     .w-section-last { padding:10px 16px 20px; background:var(--page); }
+    .w-section .w-scroll,
+    .w-section-last .w-scroll { margin:0 -16px; border-radius:0; border-left:none; border-right:none; }
     .w-sh {
       font-size:clamp(13px,3.5vw,15px); font-weight:bold; color:var(--pri);
       border-bottom:2px solid var(--divid); padding-bottom:6px; margin-bottom:6px;
@@ -134,19 +168,31 @@
     /* ── Scroll row ────────────────────────────────────────────────── */
     .w-scroll {
       overflow-x:auto; -webkit-overflow-scrolling:touch;
-      border-radius:6px; border:1px solid var(--border);
-      padding:5px; background:var(--row);
+      border-radius:10px; padding:6px;
+      background:var(--scroll-bg);
+      border:1px solid var(--scroll-border);
+      backdrop-filter:blur(6px);
+      -webkit-backdrop-filter:blur(6px);
     }
     .w-scroll table {
-      border-collapse:separate; border-spacing:4px; width:max-content;
+      border-collapse:separate; border-spacing:5px; width:100%; min-width:max-content;
     }
 
-    /* ── Cards ─────────────────────────────────────────────────────── */
+    /* ── Cards — glassmorphism ─────────────────────────────────────── */
     .wc {
       padding:var(--card-pad); text-align:center; vertical-align:top;
-      background:var(--card); border-radius:8px; width:var(--card-w);
-      font-size:var(--card-fs); border:1px solid var(--border);
-      white-space:normal;
+      min-width:var(--card-w); font-size:var(--card-fs); white-space:normal;
+      border-radius:12px;
+      background:var(--glass-bg);
+      border:1px solid var(--glass-border);
+      backdrop-filter:blur(12px) saturate(160%);
+      -webkit-backdrop-filter:blur(12px) saturate(160%);
+      box-shadow:var(--glass-shadow);
+      transition: transform .15s ease, box-shadow .15s ease, background .3s;
+    }
+    .wc:hover {
+      transform:translateY(-2px);
+      box-shadow:var(--glass-shadow-hover);
     }
     .wc-time  { color:var(--pri); font-size:calc(var(--card-fs) + 1px); font-weight:bold; }
     .wc-date  { color:var(--pri); font-size:calc(var(--card-fs) - 1px); font-weight:bold; }
@@ -166,6 +212,7 @@
   <input id="location-input" type="text" placeholder="Ort – z.B. München, Wien, Zürich …" autocomplete="off" />
   <button id="locate-btn" onclick="autoDetectLocation()" title="Meinen Standort verwenden">📍</button>
   <button id="search-btn" onclick="startSearch()">🔍 Suchen</button>
+  <button id="theme-btn" onclick="toggleTheme()" title="Hell/Dunkel wechseln">🌙</button>
 </div>
 <div id="status"></div>
 <div id="report"></div>
@@ -537,6 +584,22 @@ async function startSearch() {
 document.getElementById("location-input").addEventListener("keydown", e => {
   if (e.key === "Enter") startSearch();
 });
+
+// ── Theme toggle ─────────────────────────────────────────────────────────────
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  document.getElementById("theme-btn").textContent = theme === "light" ? "🌙" : "☀️";
+}
+function toggleTheme() {
+  const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+  localStorage.setItem("wetter-theme", next);
+  applyTheme(next);
+}
+(function () {
+  const saved = localStorage.getItem("wetter-theme")
+    || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+  applyTheme(saved);
+})();
 
 // ── Auto-start: browser geolocation → reverse geocode, fallback to Shanghai ──
 async function reverseGeocode(lat, lon) {

@@ -24,40 +24,41 @@
   <meta name="twitter:title" content="Wetterbericht – 72h & 14-Tage-Vorhersage">
   <meta name="twitter:description" content="Kostenlose Wettervorhersage für jeden Ort weltweit – 72h und 14 Tage Prognose.">
   <meta name="twitter:image" content="https://helmutqualtinger.github.io/WetterVorschau/Rebstein-Panormam.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+
   <style>
-    /* ── Dark theme (default) ───────────────────────────────────────── */
+    /* ── Matrix / 70s Sci-Fi ─────────────────────────────────────────── */
     :root {
-      --page:   #0d1117; --row:    #1a2233;
-      --header: #1e3a5f; --title:  #0d1f3c; --border: #2a3f5a;
-      --divid:  #1e3a5f; --pri:    #e6edf3; --sec:    #8b949e;
-      --min:    #6e7681; --accent: #58a6ff; --green:  #3fb950;
-      --pill:   #79c0ff; --banner: #060d18;
-      --searchbar-bg: #161b22;
-      --glass-bg: linear-gradient(145deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 100%);
-      --glass-border: rgba(255,255,255,0.18);
-      --glass-shadow: 0 2px 8px rgba(0,0,0,0.40), inset 0 1px 0 rgba(255,255,255,0.15);
-      --glass-shadow-hover: 0 6px 18px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.20);
-      --scroll-bg: rgba(255,255,255,0.04);
-      --scroll-border: rgba(255,255,255,0.10);
+      --page:          #000900;
+      --row:           #001400;
+      --header:        #002800;
+      --title:         #001200;
+      --border:        rgba(0,255,65,0.30);
+      --divid:         #003300;
+      --pri:           #00ff41;
+      --sec:           #00cc33;
+      --min:           #007a1f;
+      --accent:        #00ff41;
+      --green:         #39ff14;
+      --pill:          #00e536;
+      --banner:        #000900;
+      --searchbar-bg:  #001200;
+
+      --card-bg:       linear-gradient(160deg,rgba(0,80,0,0.45) 0%,rgba(0,30,0,0.30) 100%);
+      --card-border:   rgba(0,255,65,0.38);
+      --card-shadow:   0 0 8px rgba(0,255,65,0.18), inset 0 1px 0 rgba(0,255,65,0.12);
+      --card-shadow-hover: 0 0 28px rgba(0,255,65,0.60), inset 0 1px 0 rgba(0,255,65,0.30);
+
+      --scroll-bg:     rgba(0,255,65,0.04);
+      --scroll-border: rgba(0,255,65,0.22);
+
       --banner-h: 260px;
       --card-w: 105px; --card-fs: 12px; --card-icon: 30px;
       --card-temp: 17px; --card-pad: 7px 5px;
       --section-pad: 18px 16px 10px;
-    }
-    /* ── Light theme ────────────────────────────────────────────────── */
-    [data-theme="light"] {
-      --page:   #ddeeff; --row:    #c8dff5;
-      --header: #a8c8e8; --title:  #1a6fc4; --border: rgba(0,80,160,0.25);
-      --divid:  #90b8d8; --pri:    #0d1a2a; --sec:    #3a5570;
-      --min:    #5577aa; --accent: #0550ae; --green:  #1a7f37;
-      --pill:   #0969da; --banner: #b0ccee;
-      --searchbar-bg: #c0d8f0;
-      --glass-bg: linear-gradient(145deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.35) 100%);
-      --glass-border: rgba(255,255,255,0.80);
-      --glass-shadow: 0 2px 8px rgba(0,60,120,0.18), inset 0 1px 0 rgba(255,255,255,0.90);
-      --glass-shadow-hover: 0 6px 18px rgba(0,60,120,0.28), inset 0 1px 0 rgba(255,255,255,0.95);
-      --scroll-bg: rgba(0,80,160,0.07);
-      --scroll-border: rgba(0,80,160,0.18);
     }
     @media (max-width: 600px) {
       :root {
@@ -77,43 +78,58 @@
     }
 
     * { box-sizing: border-box; }
-    body { margin:0; padding:0; background:var(--page); font-family:Arial,Helvetica,sans-serif; color:var(--pri); transition:background .3s, color .3s; }
+    body {
+      margin:0; padding:0; background:var(--page);
+      font-family:'Share Tech Mono','Courier New',monospace;
+      color:var(--pri);
+      text-shadow:0 0 6px rgba(0,255,65,0.45);
+    }
+    body::after {
+      content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
+      background:repeating-linear-gradient(
+        0deg,
+        rgba(0,0,0,0.06) 0px, rgba(0,0,0,0.06) 1px,
+        transparent 1px, transparent 3px
+      );
+    }
+    #matrix-rain { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; opacity:0.15; pointer-events:none; }
 
     #search-bar {
-      display:flex; gap:8px; padding:12px 16px;
+      display:flex; gap:8px; padding:12px 16px; align-items:center;
       background:var(--searchbar-bg); border-bottom:1px solid var(--border);
       position:sticky; top:0; z-index:100; flex-wrap:wrap;
-      transition: background .3s;
+    }
+    #app-title {
+      font-family:'VT323',monospace; font-size:clamp(18px,5vw,24px);
+      color:var(--pri); letter-spacing:2px; white-space:nowrap;
+      text-shadow:0 0 12px rgba(0,255,65,0.9), 0 0 30px rgba(0,255,65,0.4);
+      flex-shrink:0;
     }
     #location-input {
       flex:1; min-width:0; padding:9px 12px; background:var(--page);
-      border:1px solid var(--border); border-radius:6px;
+      border:1px solid var(--border); border-radius:4px;
       color:var(--pri); font-size:clamp(13px,3.5vw,15px);
+      font-family:inherit; caret-color:var(--accent);
     }
-    #location-input:focus { outline:none; border-color:var(--accent); }
+    #location-input::placeholder { color:var(--min); }
+    #location-input:focus { outline:none; border-color:var(--accent); box-shadow:0 0 10px rgba(0,255,65,0.35); }
     #search-btn {
-      padding:9px 16px; background:var(--accent); border:none;
-      border-radius:6px; color:var(--page); font-weight:bold;
+      padding:9px 16px; background:transparent; border:1px solid var(--accent);
+      border-radius:4px; color:var(--accent); font-weight:bold;
       cursor:pointer; font-size:clamp(13px,3.5vw,15px); white-space:nowrap;
-      touch-action:manipulation;
+      touch-action:manipulation; font-family:inherit;
+      text-shadow:0 0 8px rgba(0,255,65,0.8);
+      box-shadow:0 0 8px rgba(0,255,65,0.25);
     }
-    #search-btn:hover { background:var(--pill); }
-    #search-btn:disabled { background:var(--border); color:var(--min); cursor:default; }
+    #search-btn:hover { background:rgba(0,255,65,0.12); box-shadow:0 0 18px rgba(0,255,65,0.55); }
+    #search-btn:disabled { border-color:var(--min); color:var(--min); box-shadow:none; cursor:default; }
     #locate-btn {
-      padding:9px 12px; background:var(--header); border:1px solid var(--border);
-      border-radius:6px; color:var(--pri); cursor:pointer;
+      padding:9px 12px; background:transparent; border:1px solid var(--border);
+      border-radius:4px; color:var(--sec); cursor:pointer;
       font-size:clamp(13px,3.5vw,15px); white-space:nowrap;
-      touch-action:manipulation;
+      touch-action:manipulation; font-family:inherit;
     }
-    #locate-btn:hover { background:var(--divid); }
-    #theme-btn {
-      padding:9px 12px; background:transparent;
-      border:1px solid var(--border); border-radius:6px;
-      color:var(--pri); cursor:pointer; font-size:16px;
-      line-height:1; touch-action:manipulation;
-      transition:border-color .2s, color .2s;
-    }
-    #theme-btn:hover { border-color:var(--accent); color:var(--accent); }
+    #locate-btn:hover { border-color:var(--accent); color:var(--accent); }
     #status { padding:16px 16px 0; color:var(--sec); font-size:14px; min-height:2em; }
 
     /* ── Report layout ─────────────────────────────────────────────── */
@@ -129,8 +145,9 @@
     .w-banner-fallback {
       width:100%; height:var(--banner-h);
       display:flex; align-items:center; justify-content:center;
-      background:linear-gradient(135deg,#0d1f3c 0%,#1a3a6b 60%,#0d2a4a 100%);
+      background:linear-gradient(135deg,#000900 0%,#003300 60%,#001200 100%);
       font-size:clamp(16px,5vw,22px); font-weight:bold; color:var(--pri);
+      font-family:'VT323',monospace; letter-spacing:3px;
     }
     .w-titlebar {
       background:var(--title); padding:12px 16px;
@@ -178,21 +195,19 @@
       border-collapse:separate; border-spacing:5px; width:100%; min-width:max-content;
     }
 
-    /* ── Cards — glassmorphism ─────────────────────────────────────── */
+    /* ── Cards — terminal style ───────────────────────────────────── */
     .wc {
       padding:var(--card-pad); text-align:center; vertical-align:top;
       min-width:var(--card-w); font-size:var(--card-fs); white-space:normal;
-      border-radius:12px;
-      background:var(--glass-bg);
-      border:1px solid var(--glass-border);
-      backdrop-filter:blur(12px) saturate(160%);
-      -webkit-backdrop-filter:blur(12px) saturate(160%);
-      box-shadow:var(--glass-shadow);
-      transition: transform .15s ease, box-shadow .15s ease, background .3s;
+      border-radius:4px;
+      background:var(--card-bg);
+      border:1px solid var(--card-border);
+      box-shadow:var(--card-shadow);
+      transition: transform .15s ease, box-shadow .15s ease;
     }
     .wc:hover {
       transform:translateY(-2px);
-      box-shadow:var(--glass-shadow-hover);
+      box-shadow:var(--card-shadow-hover);
     }
     .wc-time  { color:var(--pri); font-size:calc(var(--card-fs) + 1px); font-weight:bold; }
     .wc-date  { color:var(--pri); font-size:calc(var(--card-fs) - 1px); font-weight:bold; }
@@ -208,20 +223,20 @@
 </head>
 <body>
 
+<canvas id="matrix-rain"></canvas>
 <div id="search-bar">
+  <span id="app-title">◈ WETTER_MATRIX</span>
   <input id="location-input" type="text" placeholder="Ort – z.B. München, Wien, Zürich …" autocomplete="off" />
-  <button id="locate-btn" onclick="autoDetectLocation()" title="Meinen Standort verwenden">📍</button>
-  <button id="search-btn" onclick="startSearch()">🔍 Suchen</button>
-  <button id="theme-btn" onclick="toggleTheme()" title="Hell/Dunkel wechseln">🌙</button>
+  <button id="locate-btn" onclick="autoDetectLocation()" title="Meinen Standort verwenden">◉ LOC</button>
+  <button id="search-btn" onclick="startSearch()">▶ SCAN</button>
 </div>
 <div id="status"></div>
 <div id="report"></div>
 
 <script>
-// Colors referenced only for the gradient fallback banner (CSS vars cover the rest)
 const C = {
-  pri: "#e6edf3", sec: "#8b949e", min: "#6e7681",
-  accent: "#58a6ff", green: "#3fb950", pill: "#79c0ff",
+  pri: "#00ff41", sec: "#00cc33", min: "#007a1f",
+  accent: "#00ff41", green: "#39ff14", pill: "#00e536",
 };
 // Banner height mirrors the CSS --banner-h variable, responsive
 
@@ -585,20 +600,34 @@ document.getElementById("location-input").addEventListener("keydown", e => {
   if (e.key === "Enter") startSearch();
 });
 
-// ── Theme toggle ─────────────────────────────────────────────────────────────
-function applyTheme(theme) {
-  document.documentElement.dataset.theme = theme;
-  document.getElementById("theme-btn").textContent = theme === "light" ? "🌙" : "☀️";
-}
-function toggleTheme() {
-  const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
-  localStorage.setItem("wetter-theme", next);
-  applyTheme(next);
-}
+// ── Matrix rain ───────────────────────────────────────────────────────────────
 (function () {
-  const saved = localStorage.getItem("wetter-theme")
-    || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
-  applyTheme(saved);
+  const canvas = document.getElementById("matrix-rain");
+  const ctx    = canvas.getContext("2d");
+  const CHARS  = "アイウエオカキクケコサシスセソタナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン01アイウエオカキクケコサシスセソタナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン234567890ABCDEF";
+  const FS     = 14;
+  let   drops  = [];
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    drops = Array.from({ length: Math.floor(canvas.width / FS) }, () => Math.random() * -80);
+  }
+  resize();
+  window.addEventListener("resize", resize);
+
+  setInterval(() => {
+    ctx.fillStyle = "rgba(0,9,0,0.055)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.font = `${FS}px monospace`;
+    drops.forEach((y, i) => {
+      const bright = Math.random() > 0.92;
+      ctx.fillStyle = bright ? "#aaffbb" : "#00ff41";
+      ctx.fillText(CHARS[Math.floor(Math.random() * CHARS.length)], i * FS, y * FS);
+      if (y * FS > canvas.height && Math.random() > 0.975) drops[i] = 0;
+      drops[i] += 0.6;
+    });
+  }, 45);
 })();
 
 // ── Auto-start: browser geolocation → reverse geocode, fallback to Shanghai ──

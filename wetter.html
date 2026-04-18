@@ -24,40 +24,40 @@
   <meta name="twitter:title" content="Wetterbericht – 72h & 14-Tage-Vorhersage">
   <meta name="twitter:description" content="Kostenlose Wettervorhersage für jeden Ort weltweit – 72h und 14 Tage Prognose.">
   <meta name="twitter:image" content="https://helmutqualtinger.github.io/WetterVorschau/Rebstein-Panormam.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
   <style>
-    /* ── Dark theme (default) ───────────────────────────────────────── */
+    /* ── Dracula / Gothic Vampire ─────────────────────────────────────── */
     :root {
-      --page:   #0d1117; --row:    #1a2233;
-      --header: #1e3a5f; --title:  #0d1f3c; --border: #2a3f5a;
-      --divid:  #1e3a5f; --pri:    #e6edf3; --sec:    #8b949e;
-      --min:    #6e7681; --accent: #58a6ff; --green:  #3fb950;
-      --pill:   #79c0ff; --banner: #060d18;
-      --searchbar-bg: #161b22;
-      --glass-bg: linear-gradient(145deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 100%);
-      --glass-border: rgba(255,255,255,0.18);
-      --glass-shadow: 0 2px 8px rgba(0,0,0,0.40), inset 0 1px 0 rgba(255,255,255,0.15);
-      --glass-shadow-hover: 0 6px 18px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.20);
-      --scroll-bg: rgba(255,255,255,0.04);
-      --scroll-border: rgba(255,255,255,0.10);
+      --page:          #1a0a2e;
+      --row:           #22103c;
+      --header:        #44475a;
+      --title:         #0d0520;
+      --border:        rgba(189,147,249,0.32);
+      --divid:         #44475a;
+      --pri:           #f8f8f2;
+      --sec:           #bd93f9;
+      --min:           #6272a4;
+      --accent:        #ff5555;
+      --green:         #50fa7b;
+      --pill:          #ff79c6;
+      --banner:        #0d0520;
+      --searchbar-bg:  #160830;
+
+      --glass-bg:      linear-gradient(145deg,rgba(68,71,90,0.55) 0%,rgba(26,10,46,0.40) 100%);
+      --glass-border:  rgba(189,147,249,0.28);
+      --glass-shadow:  0 2px 10px rgba(255,85,85,0.18), inset 0 1px 0 rgba(189,147,249,0.15);
+      --glass-shadow-hover: 0 6px 28px rgba(255,85,85,0.50), inset 0 1px 0 rgba(189,147,249,0.28);
+      --scroll-bg:     rgba(189,147,249,0.06);
+      --scroll-border: rgba(189,147,249,0.25);
+
       --banner-h: 260px;
       --card-w: 105px; --card-fs: 12px; --card-icon: 30px;
       --card-temp: 17px; --card-pad: 7px 5px;
       --section-pad: 18px 16px 10px;
-    }
-    /* ── Light theme ────────────────────────────────────────────────── */
-    [data-theme="light"] {
-      --page:   #ddeeff; --row:    #c8dff5;
-      --header: #a8c8e8; --title:  #1a6fc4; --border: rgba(0,80,160,0.25);
-      --divid:  #90b8d8; --pri:    #0d1a2a; --sec:    #3a5570;
-      --min:    #5577aa; --accent: #0550ae; --green:  #1a7f37;
-      --pill:   #0969da; --banner: #b0ccee;
-      --searchbar-bg: #c0d8f0;
-      --glass-bg: linear-gradient(145deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.35) 100%);
-      --glass-border: rgba(255,255,255,0.80);
-      --glass-shadow: 0 2px 8px rgba(0,60,120,0.18), inset 0 1px 0 rgba(255,255,255,0.90);
-      --glass-shadow-hover: 0 6px 18px rgba(0,60,120,0.28), inset 0 1px 0 rgba(255,255,255,0.95);
-      --scroll-bg: rgba(0,80,160,0.07);
-      --scroll-border: rgba(0,80,160,0.18);
     }
     @media (max-width: 600px) {
       :root {
@@ -77,43 +77,48 @@
     }
 
     * { box-sizing: border-box; }
-    body { margin:0; padding:0; background:var(--page); font-family:Arial,Helvetica,sans-serif; color:var(--pri); transition:background .3s, color .3s; }
+    body {
+      margin:0; padding:0; background:var(--page);
+      font-family:'Crimson Text',Georgia,serif;
+      color:var(--pri); font-size:15px;
+    }
+    #bat-canvas { position:fixed; top:0; left:0; width:100%; height:100%; z-index:50; opacity:0.82; pointer-events:none; }
 
     #search-bar {
-      display:flex; gap:8px; padding:12px 16px;
-      background:var(--searchbar-bg); border-bottom:1px solid var(--border);
+      display:flex; gap:8px; padding:10px 16px; align-items:center;
+      background:var(--searchbar-bg); border-bottom:2px solid rgba(255,85,85,0.45);
       position:sticky; top:0; z-index:100; flex-wrap:wrap;
-      transition: background .3s;
+    }
+    #app-title {
+      font-family:'UnifrakturMaguntia',cursive; font-size:clamp(18px,5vw,26px);
+      color:var(--accent); white-space:nowrap; flex-shrink:0; letter-spacing:1px;
+      text-shadow:0 0 14px rgba(255,85,85,0.80), 0 0 40px rgba(255,85,85,0.30);
     }
     #location-input {
-      flex:1; min-width:0; padding:9px 12px; background:var(--page);
-      border:1px solid var(--border); border-radius:6px;
-      color:var(--pri); font-size:clamp(13px,3.5vw,15px);
+      flex:1; min-width:0; padding:9px 12px; background:rgba(13,5,32,0.80);
+      border:1px solid var(--border); border-radius:4px;
+      color:var(--pri); font-size:clamp(13px,3.5vw,15px); font-family:inherit;
+      caret-color:var(--accent);
     }
-    #location-input:focus { outline:none; border-color:var(--accent); }
+    #location-input::placeholder { color:var(--min); }
+    #location-input:focus { outline:none; border-color:var(--accent); box-shadow:0 0 10px rgba(255,85,85,0.35); }
     #search-btn {
-      padding:9px 16px; background:var(--accent); border:none;
-      border-radius:6px; color:var(--page); font-weight:bold;
+      padding:9px 16px; background:rgba(255,85,85,0.15); border:1px solid var(--accent);
+      border-radius:4px; color:var(--accent); font-weight:600;
       cursor:pointer; font-size:clamp(13px,3.5vw,15px); white-space:nowrap;
-      touch-action:manipulation;
+      touch-action:manipulation; font-family:inherit;
+      text-shadow:0 0 8px rgba(255,85,85,0.70);
+      box-shadow:0 0 8px rgba(255,85,85,0.25);
     }
-    #search-btn:hover { background:var(--pill); }
-    #search-btn:disabled { background:var(--border); color:var(--min); cursor:default; }
+    #search-btn:hover { background:rgba(255,85,85,0.28); box-shadow:0 0 20px rgba(255,85,85,0.60); }
+    #search-btn:disabled { border-color:var(--min); color:var(--min); box-shadow:none; cursor:default; }
     #locate-btn {
-      padding:9px 12px; background:var(--header); border:1px solid var(--border);
-      border-radius:6px; color:var(--pri); cursor:pointer;
+      padding:9px 12px; background:transparent; border:1px solid var(--border);
+      border-radius:4px; color:var(--sec); cursor:pointer;
       font-size:clamp(13px,3.5vw,15px); white-space:nowrap;
-      touch-action:manipulation;
+      touch-action:manipulation; font-family:inherit;
     }
-    #locate-btn:hover { background:var(--divid); }
-    #theme-btn {
-      padding:9px 12px; background:transparent;
-      border:1px solid var(--border); border-radius:6px;
-      color:var(--pri); cursor:pointer; font-size:16px;
-      line-height:1; touch-action:manipulation;
-      transition:border-color .2s, color .2s;
-    }
-    #theme-btn:hover { border-color:var(--accent); color:var(--accent); }
+    #locate-btn:hover { border-color:var(--sec); color:var(--pri); }
     #status { padding:16px 16px 0; color:var(--sec); font-size:14px; min-height:2em; }
 
     /* ── Report layout ─────────────────────────────────────────────── */
@@ -128,9 +133,10 @@
     }
     .w-banner-fallback {
       width:100%; height:var(--banner-h);
-      display:flex; align-items:center; justify-content:center;
-      background:linear-gradient(135deg,#0d1f3c 0%,#1a3a6b 60%,#0d2a4a 100%);
-      font-size:clamp(16px,5vw,22px); font-weight:bold; color:var(--pri);
+      display:flex; align-items:center; justify-content:center; gap:16px;
+      background:linear-gradient(135deg,#0d0520 0%,#2a0a40 60%,#1a0830 100%);
+      font-size:clamp(16px,5vw,24px); font-weight:bold; color:var(--accent);
+      font-family:'UnifrakturMaguntia',cursive; letter-spacing:2px;
     }
     .w-titlebar {
       background:var(--title); padding:12px 16px;
@@ -208,20 +214,20 @@
 </head>
 <body>
 
+<canvas id="bat-canvas"></canvas>
 <div id="search-bar">
+  <span id="app-title">🩸 Wetter Vorschau ✝</span>
   <input id="location-input" type="text" placeholder="Ort – z.B. München, Wien, Zürich …" autocomplete="off" />
-  <button id="locate-btn" onclick="autoDetectLocation()" title="Meinen Standort verwenden">📍</button>
-  <button id="search-btn" onclick="startSearch()">🔍 Suchen</button>
-  <button id="theme-btn" onclick="toggleTheme()" title="Hell/Dunkel wechseln">🌙</button>
+  <button id="locate-btn" onclick="autoDetectLocation()" title="Meinen Standort verwenden">🦇 Ort</button>
+  <button id="search-btn" onclick="startSearch()">✝ Suchen</button>
 </div>
 <div id="status"></div>
 <div id="report"></div>
 
 <script>
-// Colors referenced only for the gradient fallback banner (CSS vars cover the rest)
 const C = {
-  pri: "#e6edf3", sec: "#8b949e", min: "#6e7681",
-  accent: "#58a6ff", green: "#3fb950", pill: "#79c0ff",
+  pri: "#f8f8f2", sec: "#bd93f9", min: "#6272a4",
+  accent: "#ff5555", green: "#50fa7b", pill: "#ff79c6",
 };
 // Banner height mirrors the CSS --banner-h variable, responsive
 
@@ -514,7 +520,7 @@ function buildReport(loc, weather, generatedAt, bannerSrc) {
 
   const bannerHtml = bannerSrc
     ? `<div class="w-banner-wrap"><img src="${bannerSrc}" alt="${loc.name}"></div>`
-    : `<div class="w-banner-fallback">📍 ${loc.name}</div>`;
+    : `<div class="w-banner-fallback">🦇 ${loc.name} 🦇</div>`;
 
   return `
 <div class="w-report">
@@ -527,12 +533,12 @@ function buildReport(loc, weather, generatedAt, bannerSrc) {
     </div>
   </div>
   <div class="w-section">
-    ${sh(`⏱ 72-Stunden-Vorhersage <span style="font-size:11px;font-weight:normal;color:${C.sec};">(3h-Intervalle, ein Tag pro Zeile)</span>`)}
+    ${sh(`✝ 72-Stunden-Vorhersage <span style="font-size:11px;font-weight:normal;color:${C.sec};">(3h-Intervalle, ein Tag pro Zeile)</span> 🧄`)}
     ${sh2(`Windrichtung ±15° Modellstreuung &nbsp;·&nbsp; Windstärke: mittlere – Böen (km/h) &nbsp;·&nbsp; 💧 Niederschlagswahrscheinlichkeit &amp; -menge`)}
     ${hourlyHtml}
   </div>
   <div class="w-section-last">
-    ${sh(`📅 14-Tage-Vorhersage <span style="font-size:11px;font-weight:normal;color:${C.sec};">(täglich, eine Woche pro Zeile)</span>`)}
+    ${sh(`🦇 14-Tage-Vorhersage <span style="font-size:11px;font-weight:normal;color:${C.sec};">(täglich, eine Woche pro Zeile)</span> ✝`)}
     ${sh2(`Windrichtung ±15° Modellstreuung &nbsp;·&nbsp; Max. Windstärke: mittlere – Böen (km/h) &nbsp;·&nbsp; 💧 Niederschlag täglich`)}
     ${dailyHtml}
   </div>
@@ -585,20 +591,48 @@ document.getElementById("location-input").addEventListener("keydown", e => {
   if (e.key === "Enter") startSearch();
 });
 
-// ── Theme toggle ─────────────────────────────────────────────────────────────
-function applyTheme(theme) {
-  document.documentElement.dataset.theme = theme;
-  document.getElementById("theme-btn").textContent = theme === "light" ? "🌙" : "☀️";
-}
-function toggleTheme() {
-  const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
-  localStorage.setItem("wetter-theme", next);
-  applyTheme(next);
-}
+// ── Bat animation ─────────────────────────────────────────────────────────────
 (function () {
-  const saved = localStorage.getItem("wetter-theme")
-    || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
-  applyTheme(saved);
+  const canvas = document.getElementById("bat-canvas");
+  const ctx    = canvas.getContext("2d");
+  const N      = 40;
+  let   bats   = [];
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener("resize", resize);
+
+  function mkBat() {
+    return {
+      x:    Math.random() * window.innerWidth,
+      y:    Math.random() * window.innerHeight,
+      vx:   (Math.random() - 0.5) * 2.0,
+      vy:   (Math.random() - 0.5) * 1.4,
+      size: 28 + Math.random() * 36,
+      t:    Math.random() * Math.PI * 2,
+    };
+  }
+  bats = Array.from({ length: N }, mkBat);
+
+  setInterval(() => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    bats.forEach(b => {
+      b.t  += 0.07;
+      b.x  += b.vx + Math.sin(b.t * 1.7) * 0.4;
+      b.y  += b.vy + Math.sin(b.t)       * 0.5;
+      if (b.x < -40)                   b.x = canvas.width  + 40;
+      if (b.x > canvas.width  + 40)    b.x = -40;
+      if (b.y < -40)                   b.y = canvas.height + 40;
+      if (b.y > canvas.height + 40)    b.y = -40;
+      ctx.font = `${b.size}px serif`;
+      ctx.fillText("🦇", b.x, b.y);
+    });
+  }, 48);
 })();
 
 // ── Auto-start: browser geolocation → reverse geocode, fallback to Shanghai ──

@@ -25,58 +25,159 @@
   <meta name="twitter:description" content="Kostenlose Wettervorhersage für jeden Ort weltweit – 72h und 14 Tage Prognose.">
   <meta name="twitter:image" content="https://helmutqualtinger.github.io/WetterVorschau/Rebstein-Panormam.jpg">
   <style>
+    :root {
+      --page:   #0d1117; --card:   #161b22; --row:    #1a2233;
+      --header: #1e3a5f; --title:  #0d1f3c; --border: #2a3f5a;
+      --divid:  #1e3a5f; --pri:    #e6edf3; --sec:    #8b949e;
+      --min:    #6e7681; --accent: #58a6ff; --green:  #3fb950;
+      --pill:   #79c0ff; --banner: #060d18;
+      --banner-h: 260px;
+      --card-w: 105px; --card-fs: 12px; --card-icon: 30px;
+      --card-temp: 17px; --card-pad: 7px 5px;
+      --section-pad: 18px 16px 10px;
+    }
+    @media (max-width: 600px) {
+      :root {
+        --banner-h: 180px;
+        --card-w: 88px; --card-fs: 11px; --card-icon: 26px;
+        --card-temp: 15px; --card-pad: 5px 3px;
+        --section-pad: 12px 10px 8px;
+      }
+    }
+    @media (max-width: 380px) {
+      :root {
+        --banner-h: 140px;
+        --card-w: 78px; --card-fs: 10px; --card-icon: 22px;
+        --card-temp: 14px; --card-pad: 4px 2px;
+        --section-pad: 10px 8px 6px;
+      }
+    }
+
     * { box-sizing: border-box; }
-    body { margin:0; padding:0; background:#0d1117; font-family:Arial,Helvetica,sans-serif; color:#e6edf3; }
+    body { margin:0; padding:0; background:var(--page); font-family:Arial,Helvetica,sans-serif; color:var(--pri); }
+
     #search-bar {
-      display:flex; gap:10px; padding:16px 20px;
-      background:#161b22; border-bottom:1px solid #2a3f5a;
-      position:sticky; top:0; z-index:100;
+      display:flex; gap:8px; padding:12px 16px;
+      background:#161b22; border-bottom:1px solid var(--border);
+      position:sticky; top:0; z-index:100; flex-wrap:wrap;
     }
     #location-input {
-      flex:1; padding:10px 14px; background:#0d1117;
-      border:1px solid #2a3f5a; border-radius:6px;
-      color:#e6edf3; font-size:15px;
+      flex:1; min-width:0; padding:9px 12px; background:var(--page);
+      border:1px solid var(--border); border-radius:6px;
+      color:var(--pri); font-size:clamp(13px,3.5vw,15px);
     }
-    #location-input:focus { outline:none; border-color:#58a6ff; }
+    #location-input:focus { outline:none; border-color:var(--accent); }
     #search-btn {
-      padding:10px 20px; background:#58a6ff; border:none;
-      border-radius:6px; color:#0d1117; font-weight:bold;
-      cursor:pointer; font-size:15px; white-space:nowrap;
+      padding:9px 16px; background:var(--accent); border:none;
+      border-radius:6px; color:var(--page); font-weight:bold;
+      cursor:pointer; font-size:clamp(13px,3.5vw,15px); white-space:nowrap;
+      touch-action:manipulation;
     }
-    #search-btn:hover { background:#79c0ff; }
-    #search-btn:disabled { background:#2a3f5a; color:#6e7681; cursor:default; }
-    #status { padding:20px 20px 0; color:#8b949e; font-size:14px; min-height:2em; }
+    #search-btn:hover { background:var(--pill); }
+    #search-btn:disabled { background:var(--border); color:var(--min); cursor:default; }
+    #locate-btn {
+      padding:9px 12px; background:var(--header); border:1px solid var(--border);
+      border-radius:6px; color:var(--pri); cursor:pointer;
+      font-size:clamp(13px,3.5vw,15px); white-space:nowrap;
+      touch-action:manipulation;
+    }
+    #locate-btn:hover { background:var(--divid); }
+    #status { padding:16px 16px 0; color:var(--sec); font-size:14px; min-height:2em; }
 
+    /* ── Report layout ─────────────────────────────────────────────── */
+    .w-report { background:var(--page); width:100%; }
+    .w-banner-wrap {
+      width:100%; height:var(--banner-h); overflow:hidden;
+      background:var(--banner); line-height:0; font-size:0;
+    }
+    .w-banner-wrap img {
+      width:100%; height:var(--banner-h);
+      object-fit:cover; object-position:center; display:block;
+    }
+    .w-banner-fallback {
+      width:100%; height:var(--banner-h);
+      display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(135deg,#0d1f3c 0%,#1a3a6b 60%,#0d2a4a 100%);
+      font-size:clamp(16px,5vw,22px); font-weight:bold; color:var(--pri);
+    }
+    .w-titlebar {
+      background:var(--title); padding:12px 16px;
+      border-bottom:1px solid var(--divid);
+    }
+    .w-titlebar-name {
+      color:var(--pri); font-size:clamp(15px,4.5vw,20px); font-weight:bold;
+    }
+    .w-titlebar-meta {
+      color:var(--sec); font-size:clamp(10px,2.5vw,11px); margin-top:3px;
+    }
+    .w-section { padding:var(--section-pad); background:var(--page); }
+    .w-section-last { padding:10px 16px 20px; background:var(--page); }
+    .w-sh {
+      font-size:clamp(13px,3.5vw,15px); font-weight:bold; color:var(--pri);
+      border-bottom:2px solid var(--divid); padding-bottom:6px; margin-bottom:6px;
+    }
+    .w-sh2 { font-size:10px; color:var(--min); margin-bottom:6px; }
+    .w-footer {
+      background:var(--title); padding:8px 16px;
+      border-top:1px solid var(--divid);
+      font-size:10px; color:var(--min); text-align:center;
+    }
+    .w-footer a { color:var(--accent); }
+
+    /* ── Pills ─────────────────────────────────────────────────────── */
+    .w-pill {
+      display:inline-block; font-size:12px; font-weight:bold;
+      color:var(--pill); background:var(--header); border-radius:5px;
+      padding:3px 10px; margin-top:8px; margin-bottom:4px;
+    }
+
+    /* ── Scroll row ────────────────────────────────────────────────── */
+    .w-scroll {
+      overflow-x:auto; -webkit-overflow-scrolling:touch;
+      border-radius:6px; border:1px solid var(--border);
+      padding:5px; background:var(--row);
+    }
+    .w-scroll table {
+      border-collapse:separate; border-spacing:4px; width:max-content;
+    }
+
+    /* ── Cards ─────────────────────────────────────────────────────── */
+    .wc {
+      padding:var(--card-pad); text-align:center; vertical-align:top;
+      background:var(--card); border-radius:8px; width:var(--card-w);
+      font-size:var(--card-fs); border:1px solid var(--border);
+      white-space:normal;
+    }
+    .wc-time  { color:var(--pri); font-size:calc(var(--card-fs) + 1px); font-weight:bold; }
+    .wc-date  { color:var(--pri); font-size:calc(var(--card-fs) - 1px); font-weight:bold; }
+    .wc-icon  { font-size:var(--card-icon); margin:3px 0; }
+    .wc-desc  { font-size:calc(var(--card-fs) - 2px); color:var(--sec); line-height:1.2; }
+    .wc-temp  { font-size:var(--card-temp); font-weight:bold; color:var(--pri); margin-top:3px; }
+    .wc-tmin  { font-size:calc(var(--card-fs) - 1px); color:var(--min); }
+    .wc-prec  { font-size:calc(var(--card-fs) - 2px); color:var(--pill); margin-top:2px; }
+    .wc-arrow { font-size:calc(var(--card-fs) + 2px); color:var(--accent); }
+    .wc-dir   { font-size:calc(var(--card-fs) - 2px); color:var(--accent); font-weight:bold; }
+    .wc-wind  { font-size:calc(var(--card-fs) - 2px); color:var(--green); }
   </style>
 </head>
 <body>
 
 <div id="search-bar">
-  <input id="location-input" type="text" placeholder="Ort eingeben – z.B. München, Berlin, Wien, Zürich …" />
+  <input id="location-input" type="text" placeholder="Ort – z.B. München, Wien, Zürich …" autocomplete="off" />
+  <button id="locate-btn" onclick="autoDetectLocation()" title="Meinen Standort verwenden">📍</button>
   <button id="search-btn" onclick="startSearch()">🔍 Suchen</button>
 </div>
 <div id="status"></div>
 <div id="report"></div>
 
 <script>
-// ── Palette ──────────────────────────────────────────────────────────────────
+// Colors referenced only for the gradient fallback banner (CSS vars cover the rest)
 const C = {
-  page:   "#0d1117",
-  card:   "#161b22",
-  row:    "#1a2233",
-  header: "#1e3a5f",
-  title:  "#0d1f3c",
-  border: "#2a3f5a",
-  divid:  "#1e3a5f",
-  pri:    "#e6edf3",
-  sec:    "#8b949e",
-  min:    "#6e7681",
-  accent: "#58a6ff",
-  green:  "#3fb950",
-  pill:   "#79c0ff",
-  banner: "#060d18",
+  pri: "#e6edf3", sec: "#8b949e", min: "#6e7681",
+  accent: "#58a6ff", green: "#3fb950", pill: "#79c0ff",
 };
-const BANNER_H = 280;
+// Banner height mirrors the CSS --banner-h variable, responsive
+
 
 // ── WMO codes (German) ───────────────────────────────────────────────────────
 const WMO = {
@@ -129,68 +230,47 @@ function precipHtml(prob, amt) {
   const parts = [];
   if (prob != null) parts.push(`${Math.round(prob)}%`);
   if (amt  != null && amt > 0) parts.push(`${amt.toFixed(1)}mm`);
-  return parts.length
-    ? `<div style="font-size:10px;color:${C.pill};margin-top:2px;">💧 ${parts.join(" · ")}</div>`
-    : "";
+  return parts.length ? `<div class="wc-prec">💧 ${parts.join(" · ")}</div>` : "";
 }
 
 function cardHourly(ts, temp, code, ws, wg, wd, prob, prec) {
   const [desc, ico] = wmoLabel(code);
   const hour = ts.length > 10 ? ts.slice(11, 16) : ts;
-  return `<td style="padding:7px 5px;text-align:center;vertical-align:top;
-    background-color:${C.card};border-radius:8px;width:105px;font-size:12px;
-    border:1px solid ${C.border};white-space:normal;">
-    <b style="color:${C.pri};font-size:13px;">${hour}</b>
-    <div style="font-size:30px;margin:3px 0;">${ico}</div>
-    <div style="font-size:10px;color:${C.sec};line-height:1.2;">${desc}</div>
-    <div style="font-size:17px;font-weight:bold;color:${C.pri};margin-top:3px;">${Math.round(temp)}°C</div>
+  return `<td class="wc">
+    <b class="wc-time">${hour}</b>
+    <div class="wc-icon">${ico}</div>
+    <div class="wc-desc">${desc}</div>
+    <div class="wc-temp">${Math.round(temp)}°C</div>
     ${precipHtml(prob, prec)}
-    <div style="font-size:14px;color:${C.accent};">${degToArrow(wd)}</div>
-    <div style="font-size:10px;color:${C.accent};font-weight:bold;">${degToCompass(wd)} ±15°</div>
-    <div style="font-size:10px;color:${C.green};">${Math.round(ws)}–${Math.round(wg)}&nbsp;km/h</div>
+    <div class="wc-arrow">${degToArrow(wd)}</div>
+    <div class="wc-dir">${degToCompass(wd)} ±15°</div>
+    <div class="wc-wind">${Math.round(ws)}–${Math.round(wg)}&nbsp;km/h</div>
   </td>`;
 }
 
 function cardDaily(dateStr, tmax, tmin, code, ws, wg, wd, prob, prec) {
   const [desc, ico] = wmoLabel(code);
-  return `<td style="padding:7px 5px;text-align:center;vertical-align:top;
-    background-color:${C.card};border-radius:8px;width:105px;font-size:12px;
-    border:1px solid ${C.border};white-space:normal;">
-    <b style="color:${C.pri};font-size:11px;">${fmtDe(dateStr)}</b>
-    <div style="font-size:30px;margin:3px 0;">${ico}</div>
-    <div style="font-size:10px;color:${C.sec};line-height:1.2;">${desc}</div>
-    <div style="font-size:15px;font-weight:bold;color:${C.pri};margin-top:3px;">${Math.round(tmax)}°C</div>
-    <div style="font-size:11px;color:${C.min};">↓${Math.round(tmin)}°C</div>
+  return `<td class="wc">
+    <b class="wc-date">${fmtDe(dateStr)}</b>
+    <div class="wc-icon">${ico}</div>
+    <div class="wc-desc">${desc}</div>
+    <div class="wc-temp">${Math.round(tmax)}°C</div>
+    <div class="wc-tmin">↓${Math.round(tmin)}°C</div>
     ${precipHtml(prob, prec)}
-    <div style="font-size:14px;color:${C.accent};">${degToArrow(wd)}</div>
-    <div style="font-size:10px;color:${C.accent};font-weight:bold;">${degToCompass(wd)} ±15°</div>
-    <div style="font-size:10px;color:${C.green};">${Math.round(ws)}–${Math.round(wg)}&nbsp;km/h</div>
+    <div class="wc-arrow">${degToArrow(wd)}</div>
+    <div class="wc-dir">${degToCompass(wd)} ±15°</div>
+    <div class="wc-wind">${Math.round(ws)}–${Math.round(wg)}&nbsp;km/h</div>
   </td>`;
 }
 
-function dayPill(dateStr) {
-  return `<div style="font-size:12px;font-weight:bold;color:${C.pill};
-    background-color:${C.header};border-radius:5px;padding:3px 10px;
-    margin-top:8px;margin-bottom:4px;display:inline-block;">📅 ${fmtDe(dateStr)}</div>`;
-}
-function weekPill(label) {
-  return `<div style="font-size:12px;font-weight:bold;color:${C.pill};
-    background-color:${C.header};border-radius:5px;padding:3px 10px;
-    margin-top:8px;margin-bottom:4px;display:inline-block;">🗓 ${label}</div>`;
-}
-function scrollRow(tds) {
-  return `<div style="overflow-x:auto;-webkit-overflow-scrolling:touch;
-    border-radius:6px;border:1px solid ${C.border};padding:5px;background-color:${C.row};">
-    <table cellpadding="0" cellspacing="4"
-      style="border-collapse:separate;border-spacing:4px;width:max-content;">
-      <tr>${tds.join("")}</tr>
-    </table></div>`;
-}
+const dayPill  = dateStr => `<div class="w-pill">📅 ${fmtDe(dateStr)}</div>`;
+const weekPill = label   => `<div class="w-pill">🗓 ${label}</div>`;
+const scrollRow = tds    => `<div class="w-scroll">
+  <table cellpadding="0" cellspacing="4"><tr>${tds.join("")}</tr></table></div>`;
 
 // ── Section heading helpers ───────────────────────────────────────────────────
-const sh  = txt => `<div style="font-size:15px;font-weight:bold;color:${C.pri};
-  border-bottom:2px solid ${C.divid};padding-bottom:6px;margin-bottom:6px;">${txt}</div>`;
-const sh2 = txt => `<div style="font-size:10px;color:${C.min};margin-bottom:6px;">${txt}</div>`;
+const sh  = txt => `<div class="w-sh">${txt}</div>`;
+const sh2 = txt => `<div class="w-sh2">${txt}</div>`;
 
 // ── Banner photo — Wikipedia JPG images (cities, landmarks, streets, quarters) ─
 const SKIP_RE = /flag|wappen|coat|logo|map|karte|seal|emblem|symbol|locator|relief|portrait|politician|icon|pictogram|badge/i;
@@ -386,55 +466,34 @@ function buildReport(loc, weather, generatedAt, bannerSrc) {
   }
 
   const bannerHtml = bannerSrc
-    ? `<div style="width:100%;height:${BANNER_H}px;overflow:hidden;background-color:${C.banner};">
-        <img src="${bannerSrc}" alt="${loc.name}"
-          style="width:100%;height:${BANNER_H}px;object-fit:cover;object-position:center;display:block;">
-       </div>`
-    : `<div style="background:linear-gradient(135deg,#0d1f3c 0%,#1a3a6b 60%,#0d2a4a 100%);
-        width:100%;height:${BANNER_H}px;display:flex;align-items:center;justify-content:center;
-        font-family:Arial,sans-serif;color:${C.pri};font-size:22px;font-weight:bold;">
-        📍 ${loc.name}</div>`;
+    ? `<div class="w-banner-wrap"><img src="${bannerSrc}" alt="${loc.name}"></div>`
+    : `<div class="w-banner-fallback">📍 ${loc.name}</div>`;
 
   return `
-<table width="100%" cellpadding="0" cellspacing="0" border="0"
-  style="background-color:${C.page};width:100%;">
-
-  <!-- Banner -->
-  <tr><td style="padding:0;overflow:hidden;line-height:0;font-size:0;
-    height:${BANNER_H}px;background-color:${C.banner};">${bannerHtml}</td></tr>
-
-  <!-- Title bar -->
-  <tr><td style="background-color:${C.title};padding:14px 20px;border-bottom:1px solid ${C.divid};">
-    <div style="color:${C.pri};font-size:20px;font-weight:bold;">📍 Wetterbericht: ${loc.name}</div>
-    <div style="color:${C.sec};font-size:11px;margin-top:3px;">
+<div class="w-report">
+  ${bannerHtml}
+  <div class="w-titlebar">
+    <div class="w-titlebar-name">📍 Wetterbericht: ${loc.name}</div>
+    <div class="w-titlebar-meta">
       ${loc.lat.toFixed(4)}°N, ${loc.lon.toFixed(4)}°O &nbsp;·&nbsp;
       Zeitzone: ${tz} &nbsp;·&nbsp; Stand: ${generatedAt}
     </div>
-  </td></tr>
-
-  <!-- 72-hour section -->
-  <tr><td style="padding:18px 16px 10px;background-color:${C.page};">
+  </div>
+  <div class="w-section">
     ${sh(`⏱ 72-Stunden-Vorhersage <span style="font-size:11px;font-weight:normal;color:${C.sec};">(3h-Intervalle, ein Tag pro Zeile)</span>`)}
     ${sh2(`Windrichtung ±15° Modellstreuung &nbsp;·&nbsp; Windstärke: mittlere – Böen (km/h) &nbsp;·&nbsp; 💧 Niederschlagswahrscheinlichkeit &amp; -menge`)}
     ${hourlyHtml}
-  </td></tr>
-
-  <!-- 14-day section -->
-  <tr><td style="padding:10px 16px 20px;background-color:${C.page};">
+  </div>
+  <div class="w-section-last">
     ${sh(`📅 14-Tage-Vorhersage <span style="font-size:11px;font-weight:normal;color:${C.sec};">(täglich, eine Woche pro Zeile)</span>`)}
     ${sh2(`Windrichtung ±15° Modellstreuung &nbsp;·&nbsp; Max. Windstärke: mittlere – Böen (km/h) &nbsp;·&nbsp; 💧 Niederschlag täglich`)}
     ${dailyHtml}
-  </td></tr>
-
-  <!-- Footer -->
-  <tr><td style="background-color:${C.title};padding:8px 16px;border-top:1px solid ${C.divid};">
-    <div style="font-size:10px;color:${C.min};text-align:center;">
-      Wetterdaten: <a href="https://open-meteo.com/" style="color:${C.accent};">Open-Meteo</a>
-      &nbsp;·&nbsp; Windrichtungsungenauigkeit: ±15° Modellstreuung
-    </div>
-  </td></tr>
-
-</table>`;
+  </div>
+  <div class="w-footer">
+    Wetterdaten: <a href="https://open-meteo.com/">Open-Meteo</a>
+    &nbsp;·&nbsp; Windrichtungsungenauigkeit: ±15° Modellstreuung
+  </div>
+</div>`;
 }
 
 // ── Main search flow ──────────────────────────────────────────────────────────

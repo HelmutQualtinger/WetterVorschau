@@ -1,0 +1,4260 @@
+<h1 id="open-meteo-api-complete-variable-reference">Open-Meteo API —
+Complete Variable Reference</h1>
+<h2 id="overview">Overview</h2>
+<p>Open-Meteo provides multiple distinct APIs, each with their own
+variable sets. This document covers all endpoints comprehensively.</p>
+<p><strong>APIs covered:</strong> 1. Weather Forecast API (standard) 2.
+Historical Weather API 3. Historical Forecast API 4. Marine Weather API
+5. Air Quality API 6. Flood API 7. Ensemble Forecast API 8. Seasonal
+Forecast API 9. Climate API 10. Geocoding API 11. Elevation API</p>
+<hr />
+<h2 id="weather-forecast-api">1. Weather Forecast API</h2>
+<p><strong>Base URL:</strong>
+<code>https://api.open-meteo.com/v1/forecast</code></p>
+<h3 id="hourly-variables-hourly">1.1 Hourly Variables
+(<code>hourly=</code>)</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 43%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>temperature_2m</code></td>
+<td>Air temperature at 2 meters above ground</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>relative_humidity_2m</code></td>
+<td>Relative humidity at 2 meters above ground</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>dew_point_2m</code></td>
+<td>Dew point temperature at 2 meters above ground</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>apparent_temperature</code></td>
+<td>Perceived feels-like temperature combining wind chill factor,
+relative humidity, and solar radiation</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>pressure_msl</code></td>
+<td>Atmospheric air pressure reduced to mean sea level</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>surface_pressure</code></td>
+<td>Pressure at surface</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>cloud_cover</code></td>
+<td>Total cloud cover as an area fraction</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>cloud_cover_low</code></td>
+<td>Low level clouds and fog up to 3 km altitude</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>cloud_cover_mid</code></td>
+<td>Mid level clouds from 3 to 8 km altitude</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>cloud_cover_high</code></td>
+<td>High level clouds from 8 km altitude</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>wind_speed_10m</code></td>
+<td>Wind speed at 10 meters above ground</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_speed_80m</code></td>
+<td>Wind speed at 80 meters above ground</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_speed_120m</code></td>
+<td>Wind speed at 120 meters above ground</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_speed_180m</code></td>
+<td>Wind speed at 180 meters above ground</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_direction_10m</code></td>
+<td>Wind direction at 10 meters above ground</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_direction_80m</code></td>
+<td>Wind direction at 80 meters above ground</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_direction_120m</code></td>
+<td>Wind direction at 120 meters above ground</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_direction_180m</code></td>
+<td>Wind direction at 180 meters above ground</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_gusts_10m</code></td>
+<td>Gusts at 10 meters above ground as a maximum of the preceding
+hour</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>shortwave_radiation</code></td>
+<td>Shortwave solar radiation as average of the preceding hour</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>direct_radiation</code></td>
+<td>Direct solar radiation as average of the preceding hour on the
+horizontal plane</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>direct_normal_irradiance</code></td>
+<td>Direct solar radiation on the normal plane (perpendicular to the
+sun)</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>diffuse_radiation</code></td>
+<td>Diffuse solar radiation as average of the preceding hour</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>global_tilted_irradiance</code></td>
+<td>Total radiation received on a tilted pane as average of the
+preceding hour</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>shortwave_radiation_instant</code></td>
+<td>Shortwave radiation at the indicated time (instantaneous)</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>direct_radiation_instant</code></td>
+<td>Direct radiation at the indicated time (instantaneous)</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>diffuse_radiation_instant</code></td>
+<td>Diffuse radiation at the indicated time (instantaneous)</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>direct_normal_irradiance_instant</code></td>
+<td>Direct normal irradiance at the indicated time (instantaneous)</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>global_tilted_irradiance_instant</code></td>
+<td>Global tilted irradiance at the indicated time (instantaneous)</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>terrestrial_solar_radiation</code></td>
+<td>Terrestrial solar radiation (averaged over hour)</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>terrestrial_solar_radiation_instant</code></td>
+<td>Terrestrial solar radiation at the indicated time
+(instantaneous)</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>vapour_pressure_deficit</code></td>
+<td>Vapor pressure deficit</td>
+<td>kPa</td>
+</tr>
+<tr>
+<td><code>cape</code></td>
+<td>Convective available potential energy</td>
+<td>J/kg</td>
+</tr>
+<tr>
+<td><code>lifted_index</code></td>
+<td>Lifted Index — atmospheric instability measure</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td><code>convective_inhibition</code></td>
+<td>Convective inhibition energy needed to trigger convection</td>
+<td>J/kg</td>
+</tr>
+<tr>
+<td><code>evapotranspiration</code></td>
+<td>Evapotranspiration from land surface and plants</td>
+<td>mm (inch)</td>
+</tr>
+<tr>
+<td><code>et0_fao_evapotranspiration</code></td>
+<td>ET₀ Reference Evapotranspiration of a well watered grass field</td>
+<td>mm (inch)</td>
+</tr>
+<tr>
+<td><code>precipitation</code></td>
+<td>Total precipitation (rain, showers, snow) sum of the preceding
+hour</td>
+<td>mm (inch)</td>
+</tr>
+<tr>
+<td><code>snowfall</code></td>
+<td>Snowfall amount of the preceding hour</td>
+<td>cm (inch)</td>
+</tr>
+<tr>
+<td><code>precipitation_probability</code></td>
+<td>Probability of precipitation with more than 0.1 mm in the preceding
+hour</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>rain</code></td>
+<td>Rain from large scale weather systems of the preceding hour</td>
+<td>mm (inch)</td>
+</tr>
+<tr>
+<td><code>showers</code></td>
+<td>Showers from convective precipitation in the preceding hour</td>
+<td>mm (inch)</td>
+</tr>
+<tr>
+<td><code>weather_code</code></td>
+<td>Weather condition as a numeric code following WMO standards</td>
+<td>WMO code</td>
+</tr>
+<tr>
+<td><code>snow_depth</code></td>
+<td>Snow depth on the ground</td>
+<td>meters</td>
+</tr>
+<tr>
+<td><code>freezing_level_height</code></td>
+<td>Altitude above sea level of the 0°C level</td>
+<td>meters</td>
+</tr>
+<tr>
+<td><code>visibility</code></td>
+<td>Viewing distance</td>
+<td>meters</td>
+</tr>
+<tr>
+<td><code>soil_temperature_0cm</code></td>
+<td>Temperature in the soil at 0 cm depth (surface)</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>soil_temperature_6cm</code></td>
+<td>Temperature in the soil at 6 cm depth</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>soil_temperature_18cm</code></td>
+<td>Temperature in the soil at 18 cm depth</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>soil_temperature_54cm</code></td>
+<td>Temperature in the soil at 54 cm depth</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>soil_moisture_0_to_1cm</code></td>
+<td>Average soil water content at 0–1 cm depth</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_1_to_3cm</code></td>
+<td>Average soil water content at 1–3 cm depth</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_3_to_9cm</code></td>
+<td>Average soil water content at 3–9 cm depth</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_9_to_27cm</code></td>
+<td>Average soil water content at 9–27 cm depth</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_27_to_81cm</code></td>
+<td>Average soil water content at 27–81 cm depth</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>temperature_80m</code></td>
+<td>Air temperature at 80 meters above ground</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>temperature_120m</code></td>
+<td>Air temperature at 120 meters above ground</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>temperature_180m</code></td>
+<td>Air temperature at 180 meters above ground</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>uv_index</code></td>
+<td>UV Index</td>
+<td>Index (0–11+)</td>
+</tr>
+<tr>
+<td><code>uv_index_clear_sky</code></td>
+<td>UV Index assuming cloud-free conditions</td>
+<td>Index (0–11+)</td>
+</tr>
+<tr>
+<td><code>is_day</code></td>
+<td>1 if the current time step has daylight, 0 at night</td>
+<td>Dimensionless</td>
+</tr>
+<tr>
+<td><code>sunshine_duration</code></td>
+<td>Number of seconds of sunshine in the preceding hour (direct
+radiation &gt; 120 W/m²)</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td><code>wet_bulb_temperature_2m</code></td>
+<td>Wet bulb temperature at 2 meters above ground</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>total_column_integrated_water_vapour</code></td>
+<td>Total column integrated water vapour in the atmosphere</td>
+<td>kg/m²</td>
+</tr>
+<tr>
+<td><code>boundary_layer_height</code></td>
+<td>Height of the atmospheric planetary boundary layer</td>
+<td>meters</td>
+</tr>
+</tbody>
+</table>
+<h3 id="minutely-variables-minutely_15">1.2 15-Minutely Variables
+(<code>minutely_15=</code>)</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 43%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>temperature_2m</code></td>
+<td>Air temperature at 2 meters above ground</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>relative_humidity_2m</code></td>
+<td>Relative humidity at 2 meters above ground</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>dew_point_2m</code></td>
+<td>Dew point temperature at 2 meters above ground</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>apparent_temperature</code></td>
+<td>Apparent temperature combining multiple factors</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>precipitation</code></td>
+<td>Total precipitation sum of the preceding 15 minutes</td>
+<td>mm (inch)</td>
+</tr>
+<tr>
+<td><code>rain</code></td>
+<td>Rain from the preceding 15 minutes</td>
+<td>mm (inch)</td>
+</tr>
+<tr>
+<td><code>showers</code></td>
+<td>Showers from the preceding 15 minutes</td>
+<td>mm (inch)</td>
+</tr>
+<tr>
+<td><code>snowfall</code></td>
+<td>Snowfall amount of the preceding 15 minutes</td>
+<td>cm (inch)</td>
+</tr>
+<tr>
+<td><code>snowfall_height</code></td>
+<td>Altitude above sea level where snowfall occurs</td>
+<td>meters</td>
+</tr>
+<tr>
+<td><code>freezing_level_height</code></td>
+<td>Altitude above sea level of the 0°C level</td>
+<td>meters</td>
+</tr>
+<tr>
+<td><code>sunshine_duration</code></td>
+<td>Duration of sunshine in the preceding 15-minute period</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td><code>weather_code</code></td>
+<td>Weather condition as a numeric code (WMO)</td>
+<td>WMO code</td>
+</tr>
+<tr>
+<td><code>wind_speed_10m</code></td>
+<td>Wind speed at 10 meters above ground</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_speed_80m</code></td>
+<td>Wind speed at 80 meters above ground</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_direction_10m</code></td>
+<td>Wind direction at 10 meters above ground</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_direction_80m</code></td>
+<td>Wind direction at 80 meters above ground</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_gusts_10m</code></td>
+<td>Gusts at 10 meters as a maximum of the preceding 15 minutes</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>visibility</code></td>
+<td>Viewing distance</td>
+<td>meters</td>
+</tr>
+<tr>
+<td><code>cape</code></td>
+<td>Convective available potential energy</td>
+<td>J/kg</td>
+</tr>
+<tr>
+<td><code>lightning_potential</code></td>
+<td>Lightning Potential Index</td>
+<td>J/kg</td>
+</tr>
+<tr>
+<td><code>is_day</code></td>
+<td>1 if daylight, 0 at night</td>
+<td>Dimensionless</td>
+</tr>
+<tr>
+<td><code>shortwave_radiation</code></td>
+<td>Solar radiation averaged over preceding 15 minutes</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>direct_radiation</code></td>
+<td>Direct solar radiation averaged over preceding 15 minutes</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>diffuse_radiation</code></td>
+<td>Diffuse solar radiation averaged over preceding 15 minutes</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>direct_normal_irradiance</code></td>
+<td>Direct normal irradiance averaged over preceding 15 minutes</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>global_tilted_irradiance</code></td>
+<td>Total radiation on tilted pane averaged over preceding 15
+minutes</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>terrestrial_solar_radiation</code></td>
+<td>Terrestrial solar radiation averaged over preceding 15 minutes</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>shortwave_radiation_instant</code></td>
+<td>Shortwave radiation at indicated time (instantaneous)</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>direct_radiation_instant</code></td>
+<td>Direct radiation at indicated time (instantaneous)</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>diffuse_radiation_instant</code></td>
+<td>Diffuse radiation at indicated time (instantaneous)</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>direct_normal_irradiance_instant</code></td>
+<td>Direct normal irradiance at indicated time (instantaneous)</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>global_tilted_irradiance_instant</code></td>
+<td>Global tilted irradiance at indicated time (instantaneous)</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>terrestrial_solar_radiation_instant</code></td>
+<td>Terrestrial solar radiation at indicated time (instantaneous)</td>
+<td>W/m²</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Note: 15-minutely data is only available in Central Europe and North
+America; hourly data is interpolated elsewhere.</p>
+</blockquote>
+<h3 id="daily-variables-daily">1.3 Daily Variables
+(<code>daily=</code>)</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 43%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>weather_code</code></td>
+<td>The most severe weather condition on a given day</td>
+<td>WMO code</td>
+</tr>
+<tr>
+<td><code>temperature_2m_max</code></td>
+<td>Maximum daily air temperature at 2 meters above ground</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>temperature_2m_min</code></td>
+<td>Minimum daily air temperature at 2 meters above ground</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>temperature_2m_mean</code></td>
+<td>Mean daily air temperature at 2 meters above ground</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>apparent_temperature_max</code></td>
+<td>Maximum daily apparent temperature</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>apparent_temperature_min</code></td>
+<td>Minimum daily apparent temperature</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>apparent_temperature_mean</code></td>
+<td>Mean daily apparent temperature</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>sunrise</code></td>
+<td>Time of sunrise</td>
+<td>ISO 8601</td>
+</tr>
+<tr>
+<td><code>sunset</code></td>
+<td>Time of sunset</td>
+<td>ISO 8601</td>
+</tr>
+<tr>
+<td><code>daylight_duration</code></td>
+<td>Number of seconds of daylight per day</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td><code>sunshine_duration</code></td>
+<td>Number of seconds of sunshine per day (direct radiation &gt; 120
+W/m²)</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td><code>uv_index_max</code></td>
+<td>Daily maximum UV Index</td>
+<td>Index</td>
+</tr>
+<tr>
+<td><code>uv_index_clear_sky_max</code></td>
+<td>Daily maximum UV Index assuming cloud-free conditions</td>
+<td>Index</td>
+</tr>
+<tr>
+<td><code>precipitation_sum</code></td>
+<td>Sum of daily precipitation (rain + showers + snowfall)</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>rain_sum</code></td>
+<td>Sum of daily rain</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>showers_sum</code></td>
+<td>Sum of daily showers</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>snowfall_sum</code></td>
+<td>Sum of daily snowfall</td>
+<td>cm</td>
+</tr>
+<tr>
+<td><code>precipitation_hours</code></td>
+<td>Number of hours with rain</td>
+<td>hours</td>
+</tr>
+<tr>
+<td><code>precipitation_probability_max</code></td>
+<td>Maximum probability of precipitation during the day</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>precipitation_probability_mean</code></td>
+<td>Mean probability of precipitation during the day</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>precipitation_probability_min</code></td>
+<td>Minimum probability of precipitation during the day</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>wind_speed_10m_max</code></td>
+<td>Maximum wind speed at 10 meters on a day</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_gusts_10m_max</code></td>
+<td>Maximum wind gusts at 10 meters on a day</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_direction_10m_dominant</code></td>
+<td>Dominant wind direction during the day</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_speed_10m_mean</code></td>
+<td>Mean wind speed at 10 meters</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_speed_10m_min</code></td>
+<td>Minimum wind speed at 10 meters</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_gusts_10m_mean</code></td>
+<td>Mean wind gusts at 10 meters</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_gusts_10m_min</code></td>
+<td>Minimum wind gusts at 10 meters</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>shortwave_radiation_sum</code></td>
+<td>Sum of solar radiation on a given day</td>
+<td>MJ/m²</td>
+</tr>
+<tr>
+<td><code>et0_fao_evapotranspiration</code></td>
+<td>Daily sum of ET₀ Reference Evapotranspiration</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>cloud_cover_mean</code></td>
+<td>Mean cloud cover</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>cloud_cover_max</code></td>
+<td>Maximum cloud cover</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>cloud_cover_min</code></td>
+<td>Minimum cloud cover</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>relative_humidity_2m_mean</code></td>
+<td>Mean relative humidity at 2 meters</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>relative_humidity_2m_max</code></td>
+<td>Maximum relative humidity at 2 meters</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>relative_humidity_2m_min</code></td>
+<td>Minimum relative humidity at 2 meters</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>dew_point_2m_mean</code></td>
+<td>Mean dew point at 2 meters</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>dew_point_2m_max</code></td>
+<td>Maximum dew point at 2 meters</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>dew_point_2m_min</code></td>
+<td>Minimum dew point at 2 meters</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>wet_bulb_temperature_2m_mean</code></td>
+<td>Mean wet bulb temperature at 2 meters</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>wet_bulb_temperature_2m_max</code></td>
+<td>Maximum wet bulb temperature at 2 meters</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>wet_bulb_temperature_2m_min</code></td>
+<td>Minimum wet bulb temperature at 2 meters</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>cape_mean</code></td>
+<td>Mean convective available potential energy</td>
+<td>J/kg</td>
+</tr>
+<tr>
+<td><code>cape_max</code></td>
+<td>Maximum convective available potential energy</td>
+<td>J/kg</td>
+</tr>
+<tr>
+<td><code>cape_min</code></td>
+<td>Minimum convective available potential energy</td>
+<td>J/kg</td>
+</tr>
+<tr>
+<td><code>vapour_pressure_deficit_max</code></td>
+<td>Maximum vapor pressure deficit</td>
+<td>kPa</td>
+</tr>
+<tr>
+<td><code>pressure_msl_mean</code></td>
+<td>Mean sea level pressure</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>pressure_msl_max</code></td>
+<td>Maximum sea level pressure</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>pressure_msl_min</code></td>
+<td>Minimum sea level pressure</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>surface_pressure_mean</code></td>
+<td>Mean surface pressure</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>surface_pressure_max</code></td>
+<td>Maximum surface pressure</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>surface_pressure_min</code></td>
+<td>Minimum surface pressure</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>visibility_mean</code></td>
+<td>Mean visibility</td>
+<td>meters</td>
+</tr>
+<tr>
+<td><code>visibility_min</code></td>
+<td>Minimum visibility</td>
+<td>meters</td>
+</tr>
+<tr>
+<td><code>visibility_max</code></td>
+<td>Maximum visibility</td>
+<td>meters</td>
+</tr>
+<tr>
+<td><code>snowfall_water_equivalent_sum</code></td>
+<td>Water equivalent of daily snowfall</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>precipitation_probability_mean</code></td>
+<td>Mean precipitation probability</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>precipitation_probability_min</code></td>
+<td>Minimum precipitation probability</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>leaf_wetness_probability_mean</code></td>
+<td>Mean probability of leaf surface wetness</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>growing_degree_days_base_0_limit_50</code></td>
+<td>Growing degree days (base 0°C, limit 50°C)</td>
+<td>°C·day</td>
+</tr>
+<tr>
+<td><code>updraft_max</code></td>
+<td>Maximum updraft speed</td>
+<td>m/s</td>
+</tr>
+</tbody>
+</table>
+<h3 id="current-variables-current">1.4 Current Variables
+(<code>current=</code>)</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 43%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>temperature_2m</code></td>
+<td>Air temperature at 2 meters above ground</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>relative_humidity_2m</code></td>
+<td>Relative humidity at 2 meters above ground</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>apparent_temperature</code></td>
+<td>Apparent feels-like temperature</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>is_day</code></td>
+<td>1 if daylight, 0 at night</td>
+<td>Dimensionless</td>
+</tr>
+<tr>
+<td><code>precipitation</code></td>
+<td>Current precipitation</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>rain</code></td>
+<td>Current rain</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>showers</code></td>
+<td>Current showers</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>snowfall</code></td>
+<td>Current snowfall</td>
+<td>cm</td>
+</tr>
+<tr>
+<td><code>weather_code</code></td>
+<td>Weather condition as numeric code (WMO)</td>
+<td>WMO code</td>
+</tr>
+<tr>
+<td><code>cloud_cover</code></td>
+<td>Total cloud cover</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>pressure_msl</code></td>
+<td>Atmospheric pressure reduced to mean sea level</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>surface_pressure</code></td>
+<td>Atmospheric pressure at surface</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>wind_speed_10m</code></td>
+<td>Wind speed at 10 meters above ground</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_direction_10m</code></td>
+<td>Wind direction at 10 meters above ground</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_gusts_10m</code></td>
+<td>Wind gusts at 10 meters above ground</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Note: All hourly variables can also be queried as
+<code>current</code> variables; the values above are the standard
+set.</p>
+</blockquote>
+<h3 id="pressure-level-variables-hourly">1.5 Pressure Level Variables
+(<code>hourly=</code>)</h3>
+<p>Append pressure level in hPa to variable name,
+e.g. <code>temperature_850hPa</code>.</p>
+<p><strong>Available pressure levels:</strong> 1000, 975, 950, 925, 900,
+850, 800, 700, 600, 500, 400, 300, 250, 200, 150, 100, 70, 50, 30
+hPa</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 34%" />
+<col style="width: 15%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter Pattern</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>temperature_[hPa]</code></td>
+<td>Air temperature at the specified pressure level</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>relative_humidity_[hPa]</code></td>
+<td>Relative humidity at the specified pressure level</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>dew_point_[hPa]</code></td>
+<td>Dew point temperature at the specified pressure level</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>cloud_cover_[hPa]</code></td>
+<td>Cloud cover fraction at the specified pressure level</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>wind_speed_[hPa]</code></td>
+<td>Wind speed at the specified pressure level</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_direction_[hPa]</code></td>
+<td>Wind direction at the specified pressure level</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>geopotential_height_[hPa]</code></td>
+<td>Geopotential height at the specified pressure level</td>
+<td>meters</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="historical-weather-api">2. Historical Weather API</h2>
+<p><strong>Base URL:</strong>
+<code>https://archive-api.open-meteo.com/v1/archive</code></p>
+<p>Data from ERA5 and ERA5-Land reanalysis, available from 1940
+onward.</p>
+<h3 id="hourly-variables">2.1 Hourly Variables</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 43%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>temperature_2m</code></td>
+<td>Air temperature at 2 meters above ground</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>relative_humidity_2m</code></td>
+<td>Relative humidity at 2 meters above ground</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>dew_point_2m</code></td>
+<td>Dew point temperature at 2 meters above ground</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>apparent_temperature</code></td>
+<td>Perceived feels-like temperature</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>pressure_msl</code></td>
+<td>Atmospheric air pressure reduced to mean sea level</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>surface_pressure</code></td>
+<td>Pressure at surface</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>precipitation</code></td>
+<td>Total precipitation sum of the preceding hour</td>
+<td>mm (inch)</td>
+</tr>
+<tr>
+<td><code>rain</code></td>
+<td>Liquid precipitation including local showers in the preceding
+hour</td>
+<td>mm (inch)</td>
+</tr>
+<tr>
+<td><code>snowfall</code></td>
+<td>Snowfall amount of the preceding hour</td>
+<td>cm (inch)</td>
+</tr>
+<tr>
+<td><code>cloud_cover</code></td>
+<td>Total cloud cover as an area fraction</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>cloud_cover_low</code></td>
+<td>Low level clouds and fog up to 2 km altitude</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>cloud_cover_mid</code></td>
+<td>Mid level clouds from 2 to 6 km altitude</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>cloud_cover_high</code></td>
+<td>High level clouds from 6 km altitude</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>shortwave_radiation</code></td>
+<td>Shortwave solar radiation as average of the preceding hour</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>direct_radiation</code></td>
+<td>Direct solar radiation as average of the preceding hour on
+horizontal plane</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>direct_normal_irradiance</code></td>
+<td>Direct solar radiation on the normal plane (perpendicular to the
+sun)</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>diffuse_radiation</code></td>
+<td>Diffuse solar radiation as average of the preceding hour</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>global_tilted_irradiance</code></td>
+<td>Total radiation received on a tilted pane as average of the
+preceding hour</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>sunshine_duration</code></td>
+<td>Number of seconds of sunshine in the preceding hour</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td><code>wind_speed_10m</code></td>
+<td>Wind speed at 10 meters above ground</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_speed_100m</code></td>
+<td>Wind speed at 100 meters above ground</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_direction_10m</code></td>
+<td>Wind direction at 10 meters above ground</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_direction_100m</code></td>
+<td>Wind direction at 100 meters above ground</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_gusts_10m</code></td>
+<td>Gusts at 10 meters above ground in the indicated hour</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>et0_fao_evapotranspiration</code></td>
+<td>ET₀ Reference Evapotranspiration of a well watered grass field</td>
+<td>mm (inch)</td>
+</tr>
+<tr>
+<td><code>vapour_pressure_deficit</code></td>
+<td>Vapor pressure deficit</td>
+<td>kPa</td>
+</tr>
+<tr>
+<td><code>weather_code</code></td>
+<td>Weather condition as a numeric code (WMO)</td>
+<td>WMO code</td>
+</tr>
+<tr>
+<td><code>snow_depth</code></td>
+<td>Snow depth on the ground</td>
+<td>meters</td>
+</tr>
+<tr>
+<td><code>soil_temperature_0_to_7cm</code></td>
+<td>Average soil temperature at 0–7 cm depth</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>soil_temperature_7_to_28cm</code></td>
+<td>Average soil temperature at 7–28 cm depth</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>soil_temperature_28_to_100cm</code></td>
+<td>Average soil temperature at 28–100 cm depth</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>soil_temperature_100_to_255cm</code></td>
+<td>Average soil temperature at 100–255 cm depth</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>soil_moisture_0_to_7cm</code></td>
+<td>Average soil water content as volumetric mixing ratio at 0–7 cm</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_7_to_28cm</code></td>
+<td>Soil water content at 7–28 cm depth</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_28_to_100cm</code></td>
+<td>Soil water content at 28–100 cm depth</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_100_to_255cm</code></td>
+<td>Soil water content at 100–255 cm depth</td>
+<td>m³/m³</td>
+</tr>
+</tbody>
+</table>
+<h3 id="daily-variables">2.2 Daily Variables</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 43%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>weather_code</code></td>
+<td>The most severe weather condition on a given day</td>
+<td>WMO code</td>
+</tr>
+<tr>
+<td><code>temperature_2m_max</code></td>
+<td>Maximum daily air temperature at 2 meters</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>temperature_2m_min</code></td>
+<td>Minimum daily air temperature at 2 meters</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>apparent_temperature_max</code></td>
+<td>Maximum daily apparent temperature</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>apparent_temperature_min</code></td>
+<td>Minimum daily apparent temperature</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>precipitation_sum</code></td>
+<td>Sum of daily precipitation</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>rain_sum</code></td>
+<td>Sum of daily rain</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>snowfall_sum</code></td>
+<td>Sum of daily snowfall</td>
+<td>cm</td>
+</tr>
+<tr>
+<td><code>precipitation_hours</code></td>
+<td>Number of hours with rain</td>
+<td>hours</td>
+</tr>
+<tr>
+<td><code>sunrise</code></td>
+<td>Time of sunrise</td>
+<td>ISO 8601</td>
+</tr>
+<tr>
+<td><code>sunset</code></td>
+<td>Time of sunset</td>
+<td>ISO 8601</td>
+</tr>
+<tr>
+<td><code>daylight_duration</code></td>
+<td>Number of seconds of daylight per day</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td><code>sunshine_duration</code></td>
+<td>Number of seconds of sunshine per day</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td><code>wind_speed_10m_max</code></td>
+<td>Maximum wind speed during the day</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_gusts_10m_max</code></td>
+<td>Maximum wind gusts during the day</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_direction_10m_dominant</code></td>
+<td>Dominant wind direction</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>shortwave_radiation_sum</code></td>
+<td>Sum of solar radiation on a given day</td>
+<td>MJ/m²</td>
+</tr>
+<tr>
+<td><code>et0_fao_evapotranspiration</code></td>
+<td>Daily sum of ET₀ Reference Evapotranspiration</td>
+<td>mm</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="historical-forecast-api">3. Historical Forecast API</h2>
+<p><strong>Base URL:</strong>
+<code>https://historical-forecast-api.open-meteo.com/v1/forecast</code></p>
+<p>Archived numerical weather prediction model data (not reanalysis).
+Shares the same variable set as the standard Forecast API but for past
+dates.</p>
+<h3 id="hourly-variables-1">3.1 Hourly Variables</h3>
+<p>All variables from Section 1.1 (Forecast API Hourly) apply, plus:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>hail</code></td>
+<td>Hail probability (Met Office UK 2km model only)</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>lightning_potential</code></td>
+<td>Lightning Potential Index</td>
+<td>J/kg</td>
+</tr>
+</tbody>
+</table>
+<h3 id="minutely-variables">3.2 15-Minutely Variables</h3>
+<p>Same as Section 1.2 (Forecast API 15-minutely).</p>
+<h3 id="daily-variables-1">3.3 Daily Variables</h3>
+<p>Same as Section 1.3 (Forecast API daily), plus the extended soil
+variables:</p>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 43%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>soil_moisture_0_100cm_mean</code></td>
+<td>Mean soil moisture 0–100 cm</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_0_10cm_mean</code></td>
+<td>Mean soil moisture 0–10 cm</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_0_7cm_mean</code></td>
+<td>Mean soil moisture 0–7 cm</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_28_100cm_mean</code></td>
+<td>Mean soil moisture 28–100 cm</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_7_28cm_mean</code></td>
+<td>Mean soil moisture 7–28 cm</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_temperature_0_100cm_mean</code></td>
+<td>Mean soil temperature 0–100 cm</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>soil_temperature_0_7cm_mean</code></td>
+<td>Mean soil temperature 0–7 cm</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>soil_temperature_28_100cm_mean</code></td>
+<td>Mean soil temperature 28–100 cm</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>soil_temperature_7_28cm_mean</code></td>
+<td>Mean soil temperature 7–28 cm</td>
+<td>°C</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pressure-level-variables">3.4 Pressure Level Variables</h3>
+<p>Same as Section 1.5 (same pressure levels and variable patterns).</p>
+<hr />
+<h2 id="marine-weather-api">4. Marine Weather API</h2>
+<p><strong>Base URL:</strong>
+<code>https://marine-api.open-meteo.com/v1/marine</code></p>
+<h3 id="hourly-variables-2">4.1 Hourly Variables</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 43%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wave_height</code></td>
+<td>Significant mean wave height (combined wind and swell)</td>
+<td>meters</td>
+</tr>
+<tr>
+<td><code>wind_wave_height</code></td>
+<td>Significant wind wave height</td>
+<td>meters</td>
+</tr>
+<tr>
+<td><code>swell_wave_height</code></td>
+<td>Significant primary swell wave height</td>
+<td>meters</td>
+</tr>
+<tr>
+<td><code>secondary_swell_wave_height</code></td>
+<td>Significant secondary swell wave height</td>
+<td>meters</td>
+</tr>
+<tr>
+<td><code>tertiary_swell_wave_height</code></td>
+<td>Significant tertiary swell wave height</td>
+<td>meters</td>
+</tr>
+<tr>
+<td><code>wave_direction</code></td>
+<td>Mean direction of combined waves</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_wave_direction</code></td>
+<td>Wind wave direction</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>swell_wave_direction</code></td>
+<td>Primary swell wave direction</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>secondary_swell_wave_direction</code></td>
+<td>Secondary swell wave direction</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>tertiary_swell_wave_direction</code></td>
+<td>Tertiary swell wave direction</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wave_period</code></td>
+<td>Mean period between combined waves</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td><code>wind_wave_period</code></td>
+<td>Wind wave period</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td><code>swell_wave_period</code></td>
+<td>Primary swell wave period</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td><code>secondary_swell_wave_period</code></td>
+<td>Secondary swell wave period</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td><code>tertiary_swell_wave_period</code></td>
+<td>Tertiary swell wave period</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td><code>wind_wave_peak_period</code></td>
+<td>Peak period for wind waves</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td><code>swell_wave_peak_period</code></td>
+<td>Peak period for swell waves</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td><code>ocean_current_velocity</code></td>
+<td>Velocity of ocean current (includes tidal effects)</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>ocean_current_direction</code></td>
+<td>Direction of ocean current flow</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>sea_surface_temperature</code></td>
+<td>Temperature near the water surface</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>sea_level_height_msl</code></td>
+<td>Sea level height accounting for tides and atmospheric pressure</td>
+<td>meters</td>
+</tr>
+<tr>
+<td><code>invert_barometer_height</code></td>
+<td>Inverse barometer effect on sea level from pressure anomalies</td>
+<td>meters</td>
+</tr>
+</tbody>
+</table>
+<h3 id="daily-variables-2">4.2 Daily Variables</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 43%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wave_height_max</code></td>
+<td>Maximum wave height during the day</td>
+<td>meters</td>
+</tr>
+<tr>
+<td><code>wind_wave_height_max</code></td>
+<td>Maximum wind wave height during the day</td>
+<td>meters</td>
+</tr>
+<tr>
+<td><code>swell_wave_height_max</code></td>
+<td>Maximum swell wave height during the day</td>
+<td>meters</td>
+</tr>
+<tr>
+<td><code>wave_direction_dominant</code></td>
+<td>Dominant wave direction during the day</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_wave_direction_dominant</code></td>
+<td>Dominant wind wave direction during the day</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>swell_wave_direction_dominant</code></td>
+<td>Dominant swell wave direction during the day</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wave_period_max</code></td>
+<td>Maximum wave period during the day</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td><code>wind_wave_period_max</code></td>
+<td>Maximum wind wave period during the day</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td><code>swell_wave_period_max</code></td>
+<td>Maximum swell wave period during the day</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td><code>wind_wave_peak_period_max</code></td>
+<td>Maximum wind wave peak period during the day</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td><code>swell_wave_peak_period_max</code></td>
+<td>Maximum swell wave peak period during the day</td>
+<td>seconds</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Note: All hourly variables are also available as current conditions
+using <code>current=</code>.</p>
+</blockquote>
+<hr />
+<h2 id="air-quality-api">5. Air Quality API</h2>
+<p><strong>Base URL:</strong>
+<code>https://air-quality-api.open-meteo.com/v1/air-quality</code></p>
+<p>Data sourced from the Copernicus Atmosphere Monitoring Service
+(CAMS).</p>
+<h3 id="hourly-variables-3">5.1 Hourly Variables</h3>
+<h4 id="pollutants">Pollutants</h4>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 43%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pm10</code></td>
+<td>Particulate matter with diameter smaller than 10 µm near
+surface</td>
+<td>µg/m³</td>
+</tr>
+<tr>
+<td><code>pm2_5</code></td>
+<td>Particulate matter with diameter smaller than 2.5 µm near
+surface</td>
+<td>µg/m³</td>
+</tr>
+<tr>
+<td><code>carbon_monoxide</code></td>
+<td>Carbon monoxide (CO) concentration near surface</td>
+<td>µg/m³</td>
+</tr>
+<tr>
+<td><code>nitrogen_dioxide</code></td>
+<td>Nitrogen dioxide (NO₂) concentration near surface</td>
+<td>µg/m³</td>
+</tr>
+<tr>
+<td><code>nitrogen_monoxide</code></td>
+<td>Nitrogen monoxide (NO) concentration near surface</td>
+<td>µg/m³</td>
+</tr>
+<tr>
+<td><code>sulphur_dioxide</code></td>
+<td>Sulphur dioxide (SO₂) concentration near surface</td>
+<td>µg/m³</td>
+</tr>
+<tr>
+<td><code>ozone</code></td>
+<td>Ozone (O₃) concentration near surface</td>
+<td>µg/m³</td>
+</tr>
+<tr>
+<td><code>carbon_dioxide</code></td>
+<td>Carbon dioxide (CO₂) concentration near surface</td>
+<td>ppm</td>
+</tr>
+<tr>
+<td><code>methane</code></td>
+<td>Methane (CH₄) concentration near surface</td>
+<td>µg/m³</td>
+</tr>
+<tr>
+<td><code>ammonia</code></td>
+<td>Ammonia (NH₃) concentration near surface (Europe only)</td>
+<td>µg/m³</td>
+</tr>
+<tr>
+<td><code>dust</code></td>
+<td>Saharan dust particle concentration near surface</td>
+<td>µg/m³</td>
+</tr>
+<tr>
+<td><code>formaldehyde</code></td>
+<td>Formaldehyde (CH₂O) concentration</td>
+<td>µg/m³</td>
+</tr>
+<tr>
+<td><code>glyoxal</code></td>
+<td>Glyoxal (C₂H₂O₂) concentration</td>
+<td>µg/m³</td>
+</tr>
+<tr>
+<td><code>non_methane_volatile_organic_compounds</code></td>
+<td>Non-methane volatile organic compounds (NMVOC) — Europe only</td>
+<td>µg/m³</td>
+</tr>
+<tr>
+<td><code>peroxyacyl_nitrates</code></td>
+<td>Peroxyacyl nitrates (PAN) concentration</td>
+<td>µg/m³</td>
+</tr>
+<tr>
+<td><code>sea_salt_aerosol</code></td>
+<td>Sea salt aerosol particle concentration near surface</td>
+<td>µg/m³</td>
+</tr>
+<tr>
+<td><code>aerosol_optical_depth</code></td>
+<td>Aerosol optical depth (haze indicator at 550 nm) for entire
+atmosphere</td>
+<td>dimensionless</td>
+</tr>
+</tbody>
+</table>
+<h4 id="radiation">Radiation</h4>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 43%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>uv_index</code></td>
+<td>UV Index considering cloud coverage</td>
+<td>Index (0–11+)</td>
+</tr>
+<tr>
+<td><code>uv_index_clear_sky</code></td>
+<td>UV Index in clear sky conditions</td>
+<td>Index (0–11+)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="pollen-europe-only-seasonal-availability">Pollen (Europe only,
+seasonal availability)</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>alder_pollen</code></td>
+<td>Alder pollen concentration</td>
+<td>Grains/m³</td>
+</tr>
+<tr>
+<td><code>birch_pollen</code></td>
+<td>Birch pollen concentration</td>
+<td>Grains/m³</td>
+</tr>
+<tr>
+<td><code>grass_pollen</code></td>
+<td>Grass pollen concentration</td>
+<td>Grains/m³</td>
+</tr>
+<tr>
+<td><code>mugwort_pollen</code></td>
+<td>Mugwort pollen concentration</td>
+<td>Grains/m³</td>
+</tr>
+<tr>
+<td><code>olive_pollen</code></td>
+<td>Olive pollen concentration</td>
+<td>Grains/m³</td>
+</tr>
+<tr>
+<td><code>ragweed_pollen</code></td>
+<td>Ragweed pollen concentration</td>
+<td>Grains/m³</td>
+</tr>
+</tbody>
+</table>
+<h4 id="air-quality-index-aqi">Air Quality Index (AQI)</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Scale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>european_aqi</code></td>
+<td>Overall European AQI (worst pollutant)</td>
+<td>0–100+</td>
+</tr>
+<tr>
+<td><code>european_aqi_pm2_5</code></td>
+<td>European AQI for PM2.5</td>
+<td>0–100+</td>
+</tr>
+<tr>
+<td><code>european_aqi_pm10</code></td>
+<td>European AQI for PM10</td>
+<td>0–100+</td>
+</tr>
+<tr>
+<td><code>european_aqi_nitrogen_dioxide</code></td>
+<td>European AQI for NO₂</td>
+<td>0–100+</td>
+</tr>
+<tr>
+<td><code>european_aqi_ozone</code></td>
+<td>European AQI for O₃</td>
+<td>0–100+</td>
+</tr>
+<tr>
+<td><code>european_aqi_sulphur_dioxide</code></td>
+<td>European AQI for SO₂</td>
+<td>0–100+</td>
+</tr>
+<tr>
+<td><code>us_aqi</code></td>
+<td>Overall U.S. AQI (worst pollutant)</td>
+<td>0–500</td>
+</tr>
+<tr>
+<td><code>us_aqi_pm2_5</code></td>
+<td>U.S. AQI for PM2.5</td>
+<td>0–500</td>
+</tr>
+<tr>
+<td><code>us_aqi_pm10</code></td>
+<td>U.S. AQI for PM10</td>
+<td>0–500</td>
+</tr>
+<tr>
+<td><code>us_aqi_nitrogen_dioxide</code></td>
+<td>U.S. AQI for NO₂</td>
+<td>0–500</td>
+</tr>
+<tr>
+<td><code>us_aqi_ozone</code></td>
+<td>U.S. AQI for O₃</td>
+<td>0–500</td>
+</tr>
+<tr>
+<td><code>us_aqi_sulphur_dioxide</code></td>
+<td>U.S. AQI for SO₂</td>
+<td>0–500</td>
+</tr>
+<tr>
+<td><code>us_aqi_carbon_monoxide</code></td>
+<td>U.S. AQI for CO</td>
+<td>0–500</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="flood-api">6. Flood API</h2>
+<p><strong>Base URL:</strong>
+<code>https://flood-api.open-meteo.com/v1/flood</code></p>
+<p>Data sourced from the Global Flood Awareness System (GloFAS). River
+discharge at ~5 km resolution.</p>
+<h3 id="daily-variables-3">6.1 Daily Variables</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 43%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>river_discharge</code></td>
+<td>Daily river discharge rate</td>
+<td>m³/s</td>
+</tr>
+<tr>
+<td><code>river_discharge_mean</code></td>
+<td>Statistical mean from ensemble members for discharge rate</td>
+<td>m³/s</td>
+</tr>
+<tr>
+<td><code>river_discharge_median</code></td>
+<td>Statistical median from ensemble members for discharge rate</td>
+<td>m³/s</td>
+</tr>
+<tr>
+<td><code>river_discharge_max</code></td>
+<td>Maximum value across ensemble members</td>
+<td>m³/s</td>
+</tr>
+<tr>
+<td><code>river_discharge_min</code></td>
+<td>Minimum value across ensemble members</td>
+<td>m³/s</td>
+</tr>
+<tr>
+<td><code>river_discharge_p25</code></td>
+<td>25th percentile across ensemble members</td>
+<td>m³/s</td>
+</tr>
+<tr>
+<td><code>river_discharge_p75</code></td>
+<td>75th percentile across ensemble members</td>
+<td>m³/s</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Note: Statistical ensemble variables (mean, median, max, min, p25,
+p75) are available for forecasts only, not for historical data.</p>
+</blockquote>
+<hr />
+<h2 id="ensemble-forecast-api">7. Ensemble Forecast API</h2>
+<p><strong>Base URL:</strong>
+<code>https://ensemble-api.open-meteo.com/v1/ensemble</code></p>
+<p>Provides probabilistic forecasts from multiple ensemble members.
+Supports models including ICON-EPS, GFS-Ensemble, ECMWF-IFS-Ensemble,
+and others.</p>
+<h3 id="hourly-variables-4">7.1 Hourly Variables</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 43%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>temperature_2m</code></td>
+<td>Air temperature at 2 meters above ground</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>relative_humidity_2m</code></td>
+<td>Relative humidity at 2 meters above ground</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>dew_point_2m</code></td>
+<td>Dew point temperature at 2 meters above ground</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>apparent_temperature</code></td>
+<td>Apparent temperature combining wind chill, humidity, and solar
+effects</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>pressure_msl</code></td>
+<td>Atmospheric air pressure reduced to mean sea level</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>surface_pressure</code></td>
+<td>Pressure measured at ground surface</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>cloud_cover</code></td>
+<td>Total cloud cover as an area fraction</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>wind_speed_10m</code></td>
+<td>Wind speed at 10 meters above ground</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_speed_80m</code></td>
+<td>Wind speed at 80 meters above ground</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_speed_100m</code></td>
+<td>Wind speed at 100 meters above ground</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_speed_120m</code></td>
+<td>Wind speed at 120 meters above ground</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_direction_10m</code></td>
+<td>Wind direction at 10 meters above ground</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_direction_80m</code></td>
+<td>Wind direction at 80 meters above ground</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_direction_100m</code></td>
+<td>Wind direction at 100 meters above ground</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_direction_120m</code></td>
+<td>Wind direction at 120 meters above ground</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_gusts_10m</code></td>
+<td>Gusts at 10 meters as maximum of the preceding hour</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>shortwave_radiation</code></td>
+<td>Solar radiation averaged over preceding hour</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>direct_radiation</code></td>
+<td>Direct solar radiation on horizontal plane</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>direct_normal_irradiance</code></td>
+<td>Direct solar radiation perpendicular to the sun</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>diffuse_radiation</code></td>
+<td>Diffuse solar radiation from sky</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>global_tilted_irradiance</code></td>
+<td>Total radiation on a tilted panel surface</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>sunshine_duration</code></td>
+<td>Seconds of sunshine exceeding 120 W/m² following WMO definition</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td><code>vapour_pressure_deficit</code></td>
+<td>Vapor pressure deficit (water stress indicator)</td>
+<td>kPa</td>
+</tr>
+<tr>
+<td><code>evapotranspiration</code></td>
+<td>Water loss from soil and plants</td>
+<td>mm (inch)</td>
+</tr>
+<tr>
+<td><code>et0_fao_evapotranspiration</code></td>
+<td>ET₀ Reference Evapotranspiration of a well watered grass field</td>
+<td>mm (inch)</td>
+</tr>
+<tr>
+<td><code>weather_code</code></td>
+<td>Weather condition as numeric code (WMO)</td>
+<td>WMO code</td>
+</tr>
+<tr>
+<td><code>precipitation</code></td>
+<td>Total precipitation sum of preceding hour</td>
+<td>mm (inch)</td>
+</tr>
+<tr>
+<td><code>rain</code></td>
+<td>Liquid precipitation of preceding hour</td>
+<td>mm (inch)</td>
+</tr>
+<tr>
+<td><code>snowfall</code></td>
+<td>Frozen precipitation depth in preceding hour</td>
+<td>cm (inch)</td>
+</tr>
+<tr>
+<td><code>snow_depth</code></td>
+<td>Snow depth on the ground</td>
+<td>meters</td>
+</tr>
+<tr>
+<td><code>freezing_level_height</code></td>
+<td>Altitude above sea level of the 0°C level</td>
+<td>meters</td>
+</tr>
+<tr>
+<td><code>visibility</code></td>
+<td>Viewing distance</td>
+<td>meters</td>
+</tr>
+<tr>
+<td><code>cape</code></td>
+<td>Convective available potential energy</td>
+<td>J/kg</td>
+</tr>
+<tr>
+<td><code>surface_temperature</code></td>
+<td>Temperature at the topmost soil layer</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>soil_temperature_0_to_10cm</code></td>
+<td>Soil temperature at 0–10 cm depth</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>soil_temperature_10_to_40cm</code></td>
+<td>Soil temperature at 10–40 cm depth</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>soil_temperature_40_to_100cm</code></td>
+<td>Soil temperature at 40–100 cm depth</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>soil_temperature_100_to_200cm</code></td>
+<td>Soil temperature at 100–200 cm depth</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>soil_moisture_0_to_10cm</code></td>
+<td>Soil water content at 0–10 cm depth</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_10_to_40cm</code></td>
+<td>Soil water content at 10–40 cm depth</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_40_to_100cm</code></td>
+<td>Soil water content at 40–100 cm depth</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_100_to_200cm</code></td>
+<td>Soil water content at 100–200 cm depth</td>
+<td>m³/m³</td>
+</tr>
+</tbody>
+</table>
+<h3 id="daily-variables-4">7.2 Daily Variables</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 43%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>temperature_2m_max</code></td>
+<td>Maximum daily air temperature at 2 meters</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>temperature_2m_mean</code></td>
+<td>Mean daily air temperature at 2 meters</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>temperature_2m_min</code></td>
+<td>Minimum daily air temperature at 2 meters</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>apparent_temperature_max</code></td>
+<td>Maximum daily apparent temperature</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>apparent_temperature_mean</code></td>
+<td>Mean daily apparent temperature</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>apparent_temperature_min</code></td>
+<td>Minimum daily apparent temperature</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>cloud_cover_max</code></td>
+<td>Maximum daily cloud cover</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>cloud_cover_mean</code></td>
+<td>Mean daily cloud cover</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>cloud_cover_min</code></td>
+<td>Minimum daily cloud cover</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>relative_humidity_2m_max</code></td>
+<td>Maximum daily relative humidity</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>relative_humidity_2m_mean</code></td>
+<td>Mean daily relative humidity</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>relative_humidity_2m_min</code></td>
+<td>Minimum daily relative humidity</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>dew_point_2m_max</code></td>
+<td>Maximum daily dew point</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>dew_point_2m_mean</code></td>
+<td>Mean daily dew point</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>dew_point_2m_min</code></td>
+<td>Minimum daily dew point</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>rain_sum</code></td>
+<td>Daily rainfall total</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>showers_sum</code></td>
+<td>Daily shower total</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>snowfall_sum</code></td>
+<td>Daily snowfall total</td>
+<td>cm</td>
+</tr>
+<tr>
+<td><code>precipitation_sum</code></td>
+<td>Daily total precipitation</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>precipitation_hours</code></td>
+<td>Hours with measurable rain</td>
+<td>hours</td>
+</tr>
+<tr>
+<td><code>pressure_msl_max</code></td>
+<td>Maximum daily sea-level pressure</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>pressure_msl_mean</code></td>
+<td>Mean daily sea-level pressure</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>pressure_msl_min</code></td>
+<td>Minimum daily sea-level pressure</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>surface_pressure_max</code></td>
+<td>Maximum daily surface pressure</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>surface_pressure_mean</code></td>
+<td>Mean daily surface pressure</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>surface_pressure_min</code></td>
+<td>Minimum daily surface pressure</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>wind_speed_10m_max</code></td>
+<td>Maximum daily wind speed at 10 meters</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_speed_10m_mean</code></td>
+<td>Mean daily wind speed at 10 meters</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_speed_10m_min</code></td>
+<td>Minimum daily wind speed at 10 meters</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_gusts_10m_max</code></td>
+<td>Maximum daily wind gusts</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_gusts_10m_mean</code></td>
+<td>Mean daily wind gusts</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_gusts_10m_min</code></td>
+<td>Minimum daily wind gusts</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_direction_10m_dominant</code></td>
+<td>Prevailing wind direction</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_direction_100m_dominant</code></td>
+<td>Prevailing wind direction at 100 meters</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>shortwave_radiation_sum</code></td>
+<td>Daily solar radiation total</td>
+<td>MJ/m²</td>
+</tr>
+<tr>
+<td><code>cape_max</code></td>
+<td>Maximum daily convective energy</td>
+<td>J/kg</td>
+</tr>
+<tr>
+<td><code>cape_mean</code></td>
+<td>Mean daily convective energy</td>
+<td>J/kg</td>
+</tr>
+<tr>
+<td><code>cape_min</code></td>
+<td>Minimum daily convective energy</td>
+<td>J/kg</td>
+</tr>
+<tr>
+<td><code>et0_fao_evapotranspiration</code></td>
+<td>Daily reference evapotranspiration sum</td>
+<td>mm</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="seasonal-forecast-api">8. Seasonal Forecast API</h2>
+<p><strong>Base URL:</strong>
+<code>https://seasonal-api.open-meteo.com/v1/seasonal</code></p>
+<p>Long-range probabilistic forecasts up to 7 months ahead. Models:
+ECMWF SEAS5 (EC46), NCEP CFSv2, and others.</p>
+<h3 id="hourly-variables-5">8.1 6-Hourly Variables</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 43%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>temperature_2m</code></td>
+<td>Temperature at 2 meters</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>temperature_2m_max_6h</code></td>
+<td>Maximum temperature over 6-hour interval at 2 meters</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>temperature_2m_min_6h</code></td>
+<td>Minimum temperature over 6-hour interval at 2 meters</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>dew_point_2m</code></td>
+<td>Dew point at 2 meters</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>relative_humidity_2m</code></td>
+<td>Relative humidity at 2 meters</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>apparent_temperature_2m</code></td>
+<td>Perceived temperature at 2 meters</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>reference_evapotranspiration</code></td>
+<td>ET₀ reference evapotranspiration</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>vapour_pressure_deficit</code></td>
+<td>Vapor pressure deficit</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>sea_level_pressure</code></td>
+<td>Atmospheric pressure at sea level</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>weather_code</code></td>
+<td>WMO weather condition code</td>
+<td>code</td>
+</tr>
+<tr>
+<td><code>precipitation</code></td>
+<td>Total precipitation amount</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>showers</code></td>
+<td>Shower precipitation (EC46 only)</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>snowfall</code></td>
+<td>Snow accumulation</td>
+<td>cm</td>
+</tr>
+<tr>
+<td><code>rain</code></td>
+<td>Liquid precipitation</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>wave_height</code></td>
+<td>Ocean wave height (EC46 only)</td>
+<td>meters</td>
+</tr>
+<tr>
+<td><code>wave_direction</code></td>
+<td>Ocean wave direction (EC46 only)</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wave_period</code></td>
+<td>Ocean wave period (EC46 only)</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td><code>wave_peak_period</code></td>
+<td>Peak wave period (EC46 only)</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td><code>cloud_cover</code></td>
+<td>Total cloud coverage</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>sunshine_duration</code></td>
+<td>Hours of sunshine (EC46 only)</td>
+<td>hours</td>
+</tr>
+<tr>
+<td><code>wind_speed_10m</code></td>
+<td>Wind speed at 10 meters</td>
+<td>km/h</td>
+</tr>
+<tr>
+<td><code>wind_speed_100m</code></td>
+<td>Wind speed at 100 meters</td>
+<td>km/h</td>
+</tr>
+<tr>
+<td><code>wind_speed_200m</code></td>
+<td>Wind speed at 200 meters</td>
+<td>km/h</td>
+</tr>
+<tr>
+<td><code>wind_direction_10m</code></td>
+<td>Wind direction at 10 meters</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_direction_100m</code></td>
+<td>Wind direction at 100 meters</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_direction_200m</code></td>
+<td>Wind direction at 200 meters</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_gusts_10m</code></td>
+<td>Wind gust speed at 10 meters (EC46 only)</td>
+<td>km/h</td>
+</tr>
+<tr>
+<td><code>sea_surface_temperature</code></td>
+<td>Ocean water surface temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>soil_temperature_0_to_7cm</code></td>
+<td>Soil temperature at 0–7 cm depth</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>soil_temperature_7_to_28cm</code></td>
+<td>Soil temperature at 7–28 cm depth (EC46 only)</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>soil_temperature_28_to_100cm</code></td>
+<td>Soil temperature at 28–100 cm depth (EC46 only)</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>soil_temperature_100_to_255cm</code></td>
+<td>Soil temperature at 100–255 cm depth (EC46 only)</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>soil_moisture_0_to_7cm</code></td>
+<td>Soil water content at 0–7 cm (EC46 only)</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_7_to_28cm</code></td>
+<td>Soil water content at 7–28 cm (EC46 only)</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_28_to_100cm</code></td>
+<td>Soil water content at 28–100 cm (EC46 only)</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_100_to_255cm</code></td>
+<td>Soil water content at 100–255 cm (EC46 only)</td>
+<td>m³/m³</td>
+</tr>
+</tbody>
+</table>
+<h4 id="solar-radiation-6-hourly">Solar Radiation (6-Hourly)</h4>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 43%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>shortwave_radiation_ghi</code></td>
+<td>Global horizontal irradiance</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>direct_solar_radiation</code></td>
+<td>Direct beam solar radiation</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>diffuse_radiation_dhi</code></td>
+<td>Diffuse horizontal irradiance</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>direct_normal_irradiance_dni</code></td>
+<td>Direct normal irradiance</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>global_tilted_radiation_gti</code></td>
+<td>Irradiance on a tilted panel</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>terrestrial_solar_radiation</code></td>
+<td>Surface solar radiation</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>shortwave_radiation_ghi_instant</code></td>
+<td>Instantaneous global horizontal irradiance</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>direct_solar_radiation_instant</code></td>
+<td>Instantaneous direct radiation</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>diffuse_radiation_dhi_instant</code></td>
+<td>Instantaneous diffuse irradiance</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>direct_normal_irradiance_dni_instant</code></td>
+<td>Instantaneous direct normal irradiance</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>global_tilted_radiation_gti_instant</code></td>
+<td>Instantaneous tilted panel irradiance</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>terrestrial_solar_radiation_instant</code></td>
+<td>Instantaneous terrestrial radiation</td>
+<td>W/m²</td>
+</tr>
+</tbody>
+</table>
+<h3 id="daily-variables-5">8.2 Daily Variables</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 43%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>temperature_2m_max</code></td>
+<td>Daily maximum temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>temperature_2m_mean</code></td>
+<td>Daily mean temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>temperature_2m_min</code></td>
+<td>Daily minimum temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>apparent_temperature_max</code></td>
+<td>Maximum perceived temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>apparent_temperature_mean</code></td>
+<td>Mean perceived temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>apparent_temperature_min</code></td>
+<td>Minimum perceived temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>relative_humidity_2m_max</code></td>
+<td>Maximum daily humidity</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>relative_humidity_2m_mean</code></td>
+<td>Mean daily humidity</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>relative_humidity_2m_min</code></td>
+<td>Minimum daily humidity</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>dew_point_2m_max</code></td>
+<td>Maximum daily dew point</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>dew_point_2m_mean</code></td>
+<td>Mean daily dew point</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>dew_point_2m_min</code></td>
+<td>Minimum daily dew point</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>wet_bulb_temperature_2m_max</code></td>
+<td>Maximum daily wet bulb temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>wet_bulb_temperature_2m_mean</code></td>
+<td>Mean daily wet bulb temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>wet_bulb_temperature_2m_min</code></td>
+<td>Minimum daily wet bulb temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>precipitation_sum</code></td>
+<td>Daily total precipitation</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>rain_sum</code></td>
+<td>Daily rainfall total</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>showers_sum</code></td>
+<td>Daily showers total</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>snowfall_sum</code></td>
+<td>Daily snowfall total</td>
+<td>cm</td>
+</tr>
+<tr>
+<td><code>snowfall_water_equivalent_sum</code></td>
+<td>Daily snowfall water equivalent</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>cloud_cover_max</code></td>
+<td>Maximum daily cloud coverage</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>cloud_cover_mean</code></td>
+<td>Mean daily cloud coverage</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>cloud_cover_min</code></td>
+<td>Minimum daily cloud coverage</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>sealevel_pressure_max</code></td>
+<td>Maximum sea level pressure</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>sealevel_pressure_mean</code></td>
+<td>Mean sea level pressure</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>sealevel_pressure_min</code></td>
+<td>Minimum sea level pressure</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>surface_pressure_max</code></td>
+<td>Maximum surface pressure</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>surface_pressure_mean</code></td>
+<td>Mean surface pressure</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>surface_pressure_min</code></td>
+<td>Minimum surface pressure</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>vapour_pressure_deficit_max</code></td>
+<td>Maximum vapor pressure deficit</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>vapour_pressure_deficit_mean</code></td>
+<td>Mean vapor pressure deficit</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>vapour_pressure_deficit_min</code></td>
+<td>Minimum vapor pressure deficit</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>wind_speed_10m_max</code></td>
+<td>Maximum wind speed at 10 meters</td>
+<td>km/h</td>
+</tr>
+<tr>
+<td><code>wind_speed_10m_mean</code></td>
+<td>Mean wind speed at 10 meters</td>
+<td>km/h</td>
+</tr>
+<tr>
+<td><code>wind_speed_10m_min</code></td>
+<td>Minimum wind speed at 10 meters</td>
+<td>km/h</td>
+</tr>
+<tr>
+<td><code>wind_speed_100m_max</code></td>
+<td>Maximum wind speed at 100 meters (EC46 only)</td>
+<td>km/h</td>
+</tr>
+<tr>
+<td><code>wind_speed_100m_mean</code></td>
+<td>Mean wind speed at 100 meters (EC46 only)</td>
+<td>km/h</td>
+</tr>
+<tr>
+<td><code>wind_speed_100m_min</code></td>
+<td>Minimum wind speed at 100 meters (EC46 only)</td>
+<td>km/h</td>
+</tr>
+<tr>
+<td><code>wind_speed_200m_max</code></td>
+<td>Maximum wind speed at 200 meters (EC46 only)</td>
+<td>km/h</td>
+</tr>
+<tr>
+<td><code>wind_speed_200m_mean</code></td>
+<td>Mean wind speed at 200 meters (EC46 only)</td>
+<td>km/h</td>
+</tr>
+<tr>
+<td><code>wind_speed_200m_min</code></td>
+<td>Minimum wind speed at 200 meters (EC46 only)</td>
+<td>km/h</td>
+</tr>
+<tr>
+<td><code>wind_gusts_10m_max</code></td>
+<td>Maximum wind gusts at 10 meters (EC46 only)</td>
+<td>km/h</td>
+</tr>
+<tr>
+<td><code>wind_gusts_10m_mean</code></td>
+<td>Mean wind gusts at 10 meters (EC46 only)</td>
+<td>km/h</td>
+</tr>
+<tr>
+<td><code>wind_gusts_10m_min</code></td>
+<td>Minimum wind gusts at 10 meters (EC46 only)</td>
+<td>km/h</td>
+</tr>
+<tr>
+<td><code>wind_direction_10m_dominant</code></td>
+<td>Dominant wind direction at 10 meters</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_direction_100m_dominant</code></td>
+<td>Dominant wind direction at 100 meters (EC46 only)</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_direction_200m_dominant</code></td>
+<td>Dominant wind direction at 200 meters (EC46 only)</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>sea_surface_temperature_max</code></td>
+<td>Maximum daily ocean surface temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>sea_surface_temperature_mean</code></td>
+<td>Mean daily ocean surface temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>sea_surface_temperature_min</code></td>
+<td>Minimum daily ocean surface temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>reference_evapotranspiration_sum</code></td>
+<td>Daily ET₀ total</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>shortwave_radiation_sum</code></td>
+<td>Daily shortwave radiation total</td>
+<td>MJ/m²</td>
+</tr>
+<tr>
+<td><code>sunrise</code></td>
+<td>Time of sunrise</td>
+<td>ISO 8601</td>
+</tr>
+<tr>
+<td><code>sunset</code></td>
+<td>Time of sunset</td>
+<td>ISO 8601</td>
+</tr>
+<tr>
+<td><code>weather_code</code></td>
+<td>Daily weather condition code</td>
+<td>WMO code</td>
+</tr>
+<tr>
+<td><code>soil_temperature_0_to_7cm_mean</code></td>
+<td>Mean soil temperature 0–7 cm</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>soil_temperature_7_to_28cm_mean</code></td>
+<td>Mean soil temperature 7–28 cm</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>soil_temperature_28_to_100cm_mean</code></td>
+<td>Mean soil temperature 28–100 cm</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>soil_temperature_100_to_255cm_mean</code></td>
+<td>Mean soil temperature 100–255 cm</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>soil_moisture_0_to_7cm_mean</code></td>
+<td>Mean soil moisture 0–7 cm</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_7_to_28cm_mean</code></td>
+<td>Mean soil moisture 7–28 cm</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_28_to_100cm_mean</code></td>
+<td>Mean soil moisture 28–100 cm</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_100_to_255cm_mean</code></td>
+<td>Mean soil moisture 100–255 cm</td>
+<td>m³/m³</td>
+</tr>
+</tbody>
+</table>
+<h3 id="weekly-variables">8.3 Weekly Variables</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 43%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>temperature_2m_mean</code></td>
+<td>Weekly mean temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>temperature_2m_anomaly</code></td>
+<td>Temperature departure from climatology</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>temperature_2m_max_6h_mean</code></td>
+<td>Weekly mean of 6-hour max temperatures</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>temperature_2m_max_6h_anomaly</code></td>
+<td>Anomaly for 6-hour max temperatures</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>temperature_2m_min_6h_mean</code></td>
+<td>Weekly mean of 6-hour min temperatures</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>temperature_2m_min_6h_anomaly</code></td>
+<td>Anomaly for 6-hour min temperatures</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>dew_point_2m_mean</code></td>
+<td>Weekly mean dew point</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>dew_point_2m_anomaly</code></td>
+<td>Dew point anomaly vs climatology</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>soil_temperature_0_to_7cm_mean</code></td>
+<td>Weekly mean soil temperature 0–7 cm</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>soil_temperature_0_to_7cm_anomaly</code></td>
+<td>Soil temperature anomaly 0–7 cm</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>precipitation_mean</code></td>
+<td>Weekly mean precipitation</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>precipitation_anomaly</code></td>
+<td>Precipitation anomaly vs climatology</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>snowfall_mean</code></td>
+<td>Weekly mean snowfall</td>
+<td>cm</td>
+</tr>
+<tr>
+<td><code>snowfall_anomaly</code></td>
+<td>Snowfall anomaly vs climatology</td>
+<td>cm</td>
+</tr>
+<tr>
+<td><code>snow_depth_mean</code></td>
+<td>Weekly mean snow depth</td>
+<td>cm</td>
+</tr>
+<tr>
+<td><code>snow_depth_anomaly</code></td>
+<td>Snow depth anomaly vs climatology</td>
+<td>cm</td>
+</tr>
+<tr>
+<td><code>pressure_msl_mean</code></td>
+<td>Weekly mean sea level pressure</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>pressure_msl_anomaly</code></td>
+<td>Sea level pressure anomaly</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>sea_surface_temperature_mean</code></td>
+<td>Weekly mean ocean surface temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>sea_surface_temperature_anomaly</code></td>
+<td>Ocean temperature anomaly</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>sunshine_duration_mean</code></td>
+<td>Weekly mean sunshine hours</td>
+<td>hours</td>
+</tr>
+<tr>
+<td><code>sunshine_duration_anomaly</code></td>
+<td>Sunshine duration anomaly</td>
+<td>hours</td>
+</tr>
+<tr>
+<td><code>cloud_cover_mean</code></td>
+<td>Weekly mean cloud coverage</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>cloud_cover_anomaly</code></td>
+<td>Cloud coverage anomaly</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>wind_speed_10m_mean</code></td>
+<td>Weekly mean wind speed at 10 meters</td>
+<td>km/h</td>
+</tr>
+<tr>
+<td><code>wind_speed_10m_anomaly</code></td>
+<td>Wind speed anomaly at 10 meters</td>
+<td>km/h</td>
+</tr>
+<tr>
+<td><code>wind_speed_100m_mean</code></td>
+<td>Weekly mean wind speed at 100 meters</td>
+<td>km/h</td>
+</tr>
+<tr>
+<td><code>wind_speed_100m_anomaly</code></td>
+<td>Wind speed anomaly at 100 meters</td>
+<td>km/h</td>
+</tr>
+<tr>
+<td><code>wind_direction_10m_mean</code></td>
+<td>Weekly mean wind direction at 10 meters</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_direction_10m_anomaly</code></td>
+<td>Wind direction anomaly</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_direction_100m_mean</code></td>
+<td>Weekly mean wind direction at 100 meters</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>wind_direction_100m_anomaly</code></td>
+<td>Wind direction anomaly at 100 meters</td>
+<td>°</td>
+</tr>
+<tr>
+<td><code>snow_density_mean</code></td>
+<td>Weekly mean snow density</td>
+<td>kg/m³</td>
+</tr>
+<tr>
+<td><code>snow_density_anomaly</code></td>
+<td>Snow density anomaly</td>
+<td>kg/m³</td>
+</tr>
+<tr>
+<td><code>snow_depth_water_equivalent_mean</code></td>
+<td>Weekly mean snow water equivalent</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>snow_depth_water_equivalent_anomaly</code></td>
+<td>Snow water equivalent anomaly</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>snowfall_water_equivalent_mean</code></td>
+<td>Weekly mean snowfall water equivalent</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>snowfall_water_equivalent_anomaly</code></td>
+<td>Snowfall water equivalent anomaly</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>total_column_integrated_water_vapour_mean</code></td>
+<td>Weekly mean atmospheric water vapor column</td>
+<td>kg/m²</td>
+</tr>
+<tr>
+<td><code>total_column_integrated_water_vapour_anomaly</code></td>
+<td>Atmospheric water vapor anomaly</td>
+<td>kg/m²</td>
+</tr>
+</tbody>
+</table>
+<h4
+id="weekly-extreme-forecast-indices-efi-and-shift-of-tails-sot">Weekly
+Extreme Forecast Indices (EFI) and Shift of Tails (SOT)</h4>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 43%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>temperature_2m_extreme_forecast_index</code></td>
+<td>EFI for temperature extremes</td>
+<td>–1 to +1</td>
+</tr>
+<tr>
+<td><code>temperature_2m_shift_of_tails_10</code></td>
+<td>SOT for 10th percentile temperature</td>
+<td>std. dev.</td>
+</tr>
+<tr>
+<td><code>temperature_2m_shift_of_tails_90</code></td>
+<td>SOT for 90th percentile temperature</td>
+<td>std. dev.</td>
+</tr>
+<tr>
+<td><code>temperature_2m_anomaly_gt_0k</code></td>
+<td>Probability temperature anomaly &gt; 0 K</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>temperature_2m_anomaly_gt_1k</code></td>
+<td>Probability temperature anomaly &gt; +1 K</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>temperature_2m_anomaly_gt_2k</code></td>
+<td>Probability temperature anomaly &gt; +2 K</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>temperature_2m_anomaly_lt_minus_1k</code></td>
+<td>Probability temperature anomaly &lt; –1 K</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>temperature_2m_anomaly_lt_minus_2k</code></td>
+<td>Probability temperature anomaly &lt; –2 K</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>precipitation_extreme_forecast_index</code></td>
+<td>EFI for precipitation extremes</td>
+<td>–1 to +1</td>
+</tr>
+<tr>
+<td><code>precipitation_shift_of_tails_90</code></td>
+<td>SOT for 90th percentile precipitation</td>
+<td>std. dev.</td>
+</tr>
+<tr>
+<td><code>precipitation_anomaly_gt_0mm</code></td>
+<td>Probability precipitation &gt; climatology</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>precipitation_anomaly_gt_10mm</code></td>
+<td>Probability precipitation anomaly &gt; 10 mm</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>precipitation_anomaly_gt_20mm</code></td>
+<td>Probability precipitation anomaly &gt; 20 mm</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>pressure_msl_anomaly_gt_0pa</code></td>
+<td>Probability sea level pressure &gt; climatology</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>surface_temperature_anomaly_gt_0k</code></td>
+<td>Probability surface temperature &gt; climatology</td>
+<td>%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="monthly-variables">8.4 Monthly Variables</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 43%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>temperature_2m_mean</code></td>
+<td>Monthly mean temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>temperature_2m_anomaly</code></td>
+<td>Temperature anomaly vs climatology</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>temperature_2m_max_24h_mean</code></td>
+<td>Monthly mean daily maximum temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>temperature_2m_max_24h_anomaly</code></td>
+<td>Daily max temperature anomaly</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>temperature_2m_min_24h_mean</code></td>
+<td>Monthly mean daily minimum temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>temperature_2m_min_24h_anomaly</code></td>
+<td>Daily min temperature anomaly</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>dew_point_2m_mean</code></td>
+<td>Monthly mean dew point</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>dew_point_2m_anomaly</code></td>
+<td>Dew point anomaly</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>precipitation_mean</code></td>
+<td>Monthly mean precipitation</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>precipitation_anomaly</code></td>
+<td>Precipitation anomaly</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>showers_mean</code></td>
+<td>Monthly mean showers</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>showers_anomaly</code></td>
+<td>Shower precipitation anomaly</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>snowfall_mean</code></td>
+<td>Monthly mean snowfall</td>
+<td>cm</td>
+</tr>
+<tr>
+<td><code>snowfall_anomaly</code></td>
+<td>Snowfall anomaly</td>
+<td>cm</td>
+</tr>
+<tr>
+<td><code>snow_depth_mean</code></td>
+<td>Monthly mean snow depth</td>
+<td>cm</td>
+</tr>
+<tr>
+<td><code>snow_depth_anomaly</code></td>
+<td>Snow depth anomaly</td>
+<td>cm</td>
+</tr>
+<tr>
+<td><code>cloud_cover_mean</code></td>
+<td>Monthly mean cloud coverage</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>cloud_cover_anomaly</code></td>
+<td>Cloud coverage anomaly</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>cloud_cover_low_mean</code></td>
+<td>Monthly mean low cloud cover</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>cloud_cover_low_anomaly</code></td>
+<td>Low cloud cover anomaly</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>sunshine_duration_mean</code></td>
+<td>Monthly mean sunshine hours</td>
+<td>hours</td>
+</tr>
+<tr>
+<td><code>sunshine_duration_anomaly</code></td>
+<td>Sunshine duration anomaly</td>
+<td>hours</td>
+</tr>
+<tr>
+<td><code>shortwave_radiation_mean</code></td>
+<td>Monthly mean shortwave radiation</td>
+<td>MJ/m²</td>
+</tr>
+<tr>
+<td><code>shortwave_radiation_anomaly</code></td>
+<td>Shortwave radiation anomaly</td>
+<td>MJ/m²</td>
+</tr>
+<tr>
+<td><code>sealevel_pressure_mean</code></td>
+<td>Monthly mean sea level pressure</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>sealevel_pressure_anomaly</code></td>
+<td>Sea level pressure anomaly</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>sea_surface_temperature_mean</code></td>
+<td>Monthly mean ocean surface temperature</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>sea_surface_temperature_anomaly</code></td>
+<td>Ocean surface temperature anomaly</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>sea_ice_cover_mean</code></td>
+<td>Monthly mean sea ice extent</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>sea_ice_cover_anomaly</code></td>
+<td>Sea ice coverage anomaly</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>wind_speed_10m_mean</code></td>
+<td>Monthly mean wind speed at 10 meters</td>
+<td>km/h</td>
+</tr>
+<tr>
+<td><code>wind_speed_10m_anomaly</code></td>
+<td>Wind speed anomaly at 10 meters</td>
+<td>km/h</td>
+</tr>
+<tr>
+<td><code>wind_gusts_10m_anomaly</code></td>
+<td>Wind gust anomaly at 10 meters</td>
+<td>km/h</td>
+</tr>
+<tr>
+<td><code>longwave_radiation_mean</code></td>
+<td>Monthly mean longwave (outgoing) radiation</td>
+<td>MJ/m²</td>
+</tr>
+<tr>
+<td><code>longwave_radiation_anomaly</code></td>
+<td>Longwave radiation anomaly</td>
+<td>MJ/m²</td>
+</tr>
+<tr>
+<td><code>albedo_mean</code></td>
+<td>Monthly mean surface reflectivity</td>
+<td>0–1</td>
+</tr>
+<tr>
+<td><code>albedo_anomaly</code></td>
+<td>Surface reflectivity anomaly</td>
+<td>0–1</td>
+</tr>
+<tr>
+<td><code>latent_heat_flux_mean</code></td>
+<td>Monthly mean latent heat flux</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>latent_heat_flux_anomaly</code></td>
+<td>Latent heat flux anomaly</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>sensible_heat_flux_mean</code></td>
+<td>Monthly mean sensible heat flux</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>sensible_heat_flux_anomaly</code></td>
+<td>Sensible heat flux anomaly</td>
+<td>W/m²</td>
+</tr>
+<tr>
+<td><code>runoff_mean</code></td>
+<td>Monthly mean surface and subsurface runoff</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>runoff_anomaly</code></td>
+<td>Runoff anomaly</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>evapotranspiration_mean</code></td>
+<td>Monthly mean evapotranspiration</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>evapotranspiration_anomaly</code></td>
+<td>Evapotranspiration anomaly</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>snow_density_mean</code></td>
+<td>Monthly mean snow density</td>
+<td>kg/m³</td>
+</tr>
+<tr>
+<td><code>snow_density_anomaly</code></td>
+<td>Snow density anomaly</td>
+<td>kg/m³</td>
+</tr>
+<tr>
+<td><code>snow_depth_water_equivalent_mean</code></td>
+<td>Monthly mean snow water equivalent</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>snow_depth_water_equivalent_anomaly</code></td>
+<td>Snow water equivalent anomaly</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>snowfall_water_equivalent_mean</code></td>
+<td>Monthly mean snowfall water equivalent</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>snowfall_water_equivalent_anomaly</code></td>
+<td>Snowfall water equivalent anomaly</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>total_column_integrated_water_vapour_mean</code></td>
+<td>Monthly mean atmospheric water vapor column</td>
+<td>kg/m²</td>
+</tr>
+<tr>
+<td><code>total_column_integrated_water_vapour_anomaly</code></td>
+<td>Atmospheric water vapor anomaly</td>
+<td>kg/m²</td>
+</tr>
+<tr>
+<td><code>soil_temperature_0_to_7cm_mean</code></td>
+<td>Monthly mean soil temperature 0–7 cm</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>soil_temperature_0_to_7cm_anomaly</code></td>
+<td>Soil temperature anomaly 0–7 cm</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>soil_temperature_7_to_28cm_mean</code></td>
+<td>Monthly mean soil temperature 7–28 cm</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>soil_temperature_7_to_28cm_anomaly</code></td>
+<td>Soil temperature anomaly 7–28 cm</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>soil_temperature_28_to_100cm_mean</code></td>
+<td>Monthly mean soil temperature 28–100 cm</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>soil_temperature_28_to_100cm_anomaly</code></td>
+<td>Soil temperature anomaly 28–100 cm</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>soil_temperature_100_to_255cm_mean</code></td>
+<td>Monthly mean soil temperature 100–255 cm</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>soil_temperature_100_to_255cm_anomaly</code></td>
+<td>Soil temperature anomaly 100–255 cm</td>
+<td>°C</td>
+</tr>
+<tr>
+<td><code>soil_moisture_0_to_7cm_mean</code></td>
+<td>Monthly mean soil moisture 0–7 cm</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_0_to_7cm_anomaly</code></td>
+<td>Soil moisture anomaly 0–7 cm</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_7_to_28cm_mean</code></td>
+<td>Monthly mean soil moisture 7–28 cm</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_7_to_28cm_anomaly</code></td>
+<td>Soil moisture anomaly 7–28 cm</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_28_to_100cm_mean</code></td>
+<td>Monthly mean soil moisture 28–100 cm</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_28_to_100cm_anomaly</code></td>
+<td>Soil moisture anomaly 28–100 cm</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_100_to_255cm_mean</code></td>
+<td>Monthly mean soil moisture 100–255 cm</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>soil_moisture_100_to_255cm_anomaly</code></td>
+<td>Soil moisture anomaly 100–255 cm</td>
+<td>m³/m³</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Note: For all weekly and monthly variables, an ensemble spread
+(standard deviation across 51 ensemble members) can be retrieved by
+appending <code>_ensemble_spread</code> to any parameter name.</p>
+</blockquote>
+<hr />
+<h2 id="climate-api">9. Climate API</h2>
+<p><strong>Base URL:</strong>
+<code>https://climate-api.open-meteo.com/v1/climate</code></p>
+<p>Daily downscaled climate data from CMIP6 models covering 1950–2050
+(historical + projections). Available models include MRI-AGCM3-2-S,
+NICAM16-8S, EC-Earth3P-HR, and others.</p>
+<h3 id="daily-variables-6">9.1 Daily Variables</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 43%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>temperature_2m_max</code></td>
+<td>Maximum daily air temperature at 2 meters</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>temperature_2m_min</code></td>
+<td>Minimum daily air temperature at 2 meters</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>temperature_2m_mean</code></td>
+<td>Mean daily air temperature at 2 meters</td>
+<td>°C (°F)</td>
+</tr>
+<tr>
+<td><code>cloud_cover_mean</code></td>
+<td>Mean cloud cover on a given day</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>relative_humidity_2m_max</code></td>
+<td>Maximum daily relative humidity at 2 meters</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>relative_humidity_2m_min</code></td>
+<td>Minimum daily relative humidity at 2 meters</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>relative_humidity_2m_mean</code></td>
+<td>Mean daily relative humidity at 2 meters</td>
+<td>%</td>
+</tr>
+<tr>
+<td><code>soil_moisture_0_to_10cm_mean</code></td>
+<td>Daily mean soil moisture fraction within 0–10 cm</td>
+<td>m³/m³</td>
+</tr>
+<tr>
+<td><code>precipitation_sum</code></td>
+<td>Sum of daily precipitation (rain + showers + snowfall)</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>rain_sum</code></td>
+<td>Sum of daily liquid rain excluding snow</td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>snowfall_sum</code></td>
+<td>Sum of daily snowfall</td>
+<td>cm</td>
+</tr>
+<tr>
+<td><code>wind_speed_10m_mean</code></td>
+<td>Mean wind speed at 10 meters</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>wind_speed_10m_max</code></td>
+<td>Maximum wind speed at 10 meters</td>
+<td>km/h (mph, m/s, knots)</td>
+</tr>
+<tr>
+<td><code>pressure_msl_mean</code></td>
+<td>Daily mean air pressure reduced to mean sea level</td>
+<td>hPa</td>
+</tr>
+<tr>
+<td><code>shortwave_radiation_sum</code></td>
+<td>Sum of solar radiation on a given day</td>
+<td>MJ/m²</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="geocoding-api">10. Geocoding API</h2>
+<p><strong>Base URL:</strong>
+<code>https://geocoding-api.open-meteo.com/v1/search</code></p>
+<h3 id="request-parameters">10.1 Request Parameters</h3>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 15%" />
+<col style="width: 25%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Location name to search for (minimum 2 characters)</td>
+</tr>
+<tr>
+<td><code>count</code></td>
+<td>Integer</td>
+<td>No</td>
+<td>Number of results to return (default: 10, max: 100)</td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>String</td>
+<td>No</td>
+<td>Return localized results if available (default:
+<code>en</code>)</td>
+</tr>
+<tr>
+<td><code>format</code></td>
+<td>String</td>
+<td>No</td>
+<td>Response format: <code>json</code> or protobuf (default:
+<code>json</code>)</td>
+</tr>
+<tr>
+<td><code>countryCode</code></td>
+<td>String</td>
+<td>No</td>
+<td>ISO 3166-1 alpha-2 country code to filter results</td>
+</tr>
+<tr>
+<td><code>apikey</code></td>
+<td>String</td>
+<td>No</td>
+<td>Required for commercial use</td>
+</tr>
+</tbody>
+</table>
+<h3 id="response-fields">10.2 Response Fields</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>Integer</td>
+<td>Unique location identifier</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>String</td>
+<td>Location name (localized)</td>
+</tr>
+<tr>
+<td><code>latitude</code></td>
+<td>Float</td>
+<td>WGS84 latitude</td>
+</tr>
+<tr>
+<td><code>longitude</code></td>
+<td>Float</td>
+<td>WGS84 longitude</td>
+</tr>
+<tr>
+<td><code>elevation</code></td>
+<td>Float</td>
+<td>Elevation above mean sea level in meters</td>
+</tr>
+<tr>
+<td><code>timezone</code></td>
+<td>String</td>
+<td>IANA time zone name</td>
+</tr>
+<tr>
+<td><code>feature_code</code></td>
+<td>String</td>
+<td>GeoNames feature code (location type)</td>
+</tr>
+<tr>
+<td><code>country_code</code></td>
+<td>String</td>
+<td>ISO 3166-1 2-character country code</td>
+</tr>
+<tr>
+<td><code>country</code></td>
+<td>String</td>
+<td>Country name (localized)</td>
+</tr>
+<tr>
+<td><code>country_id</code></td>
+<td>Integer</td>
+<td>Unique GeoNames country identifier</td>
+</tr>
+<tr>
+<td><code>population</code></td>
+<td>Integer</td>
+<td>Number of inhabitants</td>
+</tr>
+<tr>
+<td><code>postcodes</code></td>
+<td>String[]</td>
+<td>List of postal codes</td>
+</tr>
+<tr>
+<td><code>admin1</code></td>
+<td>String</td>
+<td>Primary administrative division (state/province)</td>
+</tr>
+<tr>
+<td><code>admin2</code></td>
+<td>String</td>
+<td>Secondary administrative division (county)</td>
+</tr>
+<tr>
+<td><code>admin3</code></td>
+<td>String</td>
+<td>Third-level administrative division</td>
+</tr>
+<tr>
+<td><code>admin4</code></td>
+<td>String</td>
+<td>Fourth-level administrative division</td>
+</tr>
+<tr>
+<td><code>admin1_id</code></td>
+<td>Integer</td>
+<td>Identifier for admin1</td>
+</tr>
+<tr>
+<td><code>admin2_id</code></td>
+<td>Integer</td>
+<td>Identifier for admin2</td>
+</tr>
+<tr>
+<td><code>admin3_id</code></td>
+<td>Integer</td>
+<td>Identifier for admin3</td>
+</tr>
+<tr>
+<td><code>admin4_id</code></td>
+<td>Integer</td>
+<td>Identifier for admin4</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="elevation-api">11. Elevation API</h2>
+<p><strong>Base URL:</strong>
+<code>https://api.open-meteo.com/v1/elevation</code></p>
+<h3 id="request-parameters-1">11.1 Request Parameters</h3>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 15%" />
+<col style="width: 25%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>latitude</code></td>
+<td>Float or Float[]</td>
+<td>Yes</td>
+<td>WGS84 latitude; up to 100 comma-separated values</td>
+</tr>
+<tr>
+<td><code>longitude</code></td>
+<td>Float or Float[]</td>
+<td>Yes</td>
+<td>WGS84 longitude; up to 100 comma-separated values</td>
+</tr>
+<tr>
+<td><code>apikey</code></td>
+<td>String</td>
+<td>No</td>
+<td>Required for commercial use</td>
+</tr>
+</tbody>
+</table>
+<h3 id="response-fields-1">11.2 Response Fields</h3>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 18%" />
+<col style="width: 40%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>elevation</code></td>
+<td>Float[]</td>
+<td>Terrain elevation based on Copernicus DEM 2021 GLO-90 (90m
+resolution)</td>
+<td>meters</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="appendix-a-wmo-weather-interpretation-codes">Appendix A: WMO
+Weather Interpretation Codes</h2>
+<p>The <code>weather_code</code> variable uses WMO code table 4677:</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Clear sky</td>
+</tr>
+<tr>
+<td>1, 2, 3</td>
+<td>Mainly clear, partly cloudy, overcast</td>
+</tr>
+<tr>
+<td>45, 48</td>
+<td>Fog, depositing rime fog</td>
+</tr>
+<tr>
+<td>51, 53, 55</td>
+<td>Drizzle: light, moderate, dense intensity</td>
+</tr>
+<tr>
+<td>56, 57</td>
+<td>Freezing drizzle: light, dense</td>
+</tr>
+<tr>
+<td>61, 63, 65</td>
+<td>Rain: slight, moderate, heavy</td>
+</tr>
+<tr>
+<td>66, 67</td>
+<td>Freezing rain: light, heavy</td>
+</tr>
+<tr>
+<td>71, 73, 75</td>
+<td>Snow fall: slight, moderate, heavy</td>
+</tr>
+<tr>
+<td>77</td>
+<td>Snow grains</td>
+</tr>
+<tr>
+<td>80, 81, 82</td>
+<td>Rain showers: slight, moderate, violent</td>
+</tr>
+<tr>
+<td>85, 86</td>
+<td>Snow showers: slight, heavy</td>
+</tr>
+<tr>
+<td>95</td>
+<td>Thunderstorm: slight or moderate</td>
+</tr>
+<tr>
+<td>96, 99</td>
+<td>Thunderstorm with slight or heavy hail</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="appendix-b-common-api-request-parameters-all-endpoints">Appendix
+B: Common API Request Parameters (All Endpoints)</h2>
+<p>These parameters apply across most Open-Meteo APIs:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 39%" />
+<col style="width: 27%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>latitude</code></td>
+<td>WGS84 latitude of location</td>
+<td>Required</td>
+</tr>
+<tr>
+<td><code>longitude</code></td>
+<td>WGS84 longitude of location</td>
+<td>Required</td>
+</tr>
+<tr>
+<td><code>elevation</code></td>
+<td>Override elevation in meters (default: auto from DEM)</td>
+<td>auto</td>
+</tr>
+<tr>
+<td><code>hourly</code></td>
+<td>Comma-separated list of hourly variables</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>daily</code></td>
+<td>Comma-separated list of daily variables</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>current</code></td>
+<td>Comma-separated list of current variables</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>temperature_unit</code></td>
+<td><code>celsius</code> or <code>fahrenheit</code></td>
+<td>celsius</td>
+</tr>
+<tr>
+<td><code>wind_speed_unit</code></td>
+<td><code>kmh</code>, <code>mph</code>, <code>ms</code>, or
+<code>kn</code></td>
+<td>kmh</td>
+</tr>
+<tr>
+<td><code>precipitation_unit</code></td>
+<td><code>mm</code> or <code>inch</code></td>
+<td>mm</td>
+</tr>
+<tr>
+<td><code>timeformat</code></td>
+<td><code>iso8601</code> or <code>unixtime</code></td>
+<td>iso8601</td>
+</tr>
+<tr>
+<td><code>timezone</code></td>
+<td>IANA timezone (e.g. <code>America/New_York</code>) or
+<code>auto</code></td>
+<td>GMT</td>
+</tr>
+<tr>
+<td><code>past_days</code></td>
+<td>Number of past days to include (0–92)</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>forecast_days</code></td>
+<td>Number of forecast days (0–16)</td>
+<td>7</td>
+</tr>
+<tr>
+<td><code>start_date</code></td>
+<td>Start date in <code>YYYY-MM-DD</code> format</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>end_date</code></td>
+<td>End date in <code>YYYY-MM-DD</code> format</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>models</code></td>
+<td>Specific weather model(s) to use</td>
+<td>auto</td>
+</tr>
+<tr>
+<td><code>cell_selection</code></td>
+<td>Grid cell selection: <code>land</code>, <code>sea</code>, or
+<code>nearest</code></td>
+<td>land</td>
+</tr>
+<tr>
+<td><code>apikey</code></td>
+<td>API key for commercial use</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>Sources: Open-Meteo official documentation at
+https://open-meteo.com/en/docs and its sub-pages for Marine, Air
+Quality, Historical, Historical Forecast, Flood, Ensemble, Seasonal, and
+Climate APIs.</em></p>
+<hr />
+<p><strong>Summary of what was compiled:</strong></p>
+<ul>
+<li><strong>Section 1</strong> — Standard Forecast API: ~55 hourly, ~35
+15-minutely, ~70+ daily, 15 current, and 7 pressure-level variables</li>
+<li><strong>Section 2</strong> — Historical Weather API: 35 hourly + 18
+daily ERA5-based variables</li>
+<li><strong>Section 3</strong> — Historical Forecast API: same variable
+set as Forecast + soil mean daily aggregations</li>
+<li><strong>Section 4</strong> — Marine API: 22 hourly + 11 daily
+ocean/wave variables</li>
+<li><strong>Section 5</strong> — Air Quality API: 17 pollutant/aerosol
+variables, 2 UV variables, 6 pollen types, 13 AQI index variables</li>
+<li><strong>Section 6</strong> — Flood API: 7 daily river discharge
+variables</li>
+<li><strong>Section 7</strong> — Ensemble API: ~40 hourly + ~40 daily
+probabilistic variables</li>
+<li><strong>Section 8</strong> — Seasonal Forecast API: 35 6-hourly, ~55
+daily, ~40 weekly (with anomalies + EFI/SOT), ~60 monthly (with
+anomalies) variables</li>
+<li><strong>Section 9</strong> — Climate API: 15 daily CMIP6-based
+variables</li>
+<li><strong>Sections 10–11</strong> — Geocoding and Elevation utility
+APIs</li>
+<li><strong>Appendices</strong> — WMO weather codes and universal
+request parameters</li>
+</ul>

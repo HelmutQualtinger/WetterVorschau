@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Wetterbericht</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin:0; padding:0; background:#0d1117; font-family:Arial,Helvetica,sans-serif; color:#e6edf3; }
+    #search-bar {
+      display:flex; gap:10px; padding:16px 20px;
+      background:#161b22; border-bottom:1px solid #2a3f5a;
+      position:sticky; top:0; z-index:100;
+    }
+    #location-input {
+      flex:1; padding:10px 14px; background:#0d1117;
+      border:1px solid #2a3f5a; border-radius:6px;
+      color:#e6edf3; font-size:15px;
+    }
+    #location-input:focus { outline:none; border-color:#58a6ff; }
+    #search-btn {
+      padding:10px 20px; background:#58a6ff; border:none;
+      border-radius:6px; color:#0d1117; font-weight:bold;
+      cursor:pointer; font-size:15px; white-space:nowrap;
+    }
+    #search-btn:hover { background:#79c0ff; }
+    #search-btn:disabled { background:#2a3f5a; color:#6e7681; cursor:default; }
+    #status { padding:20px 20px 0; color:#8b949e; font-size:14px; min-height:2em; }
+    #report { }
+  </style>
+</head>
+<body>
+
+<div id="search-bar">
+  <input id="location-input" type="text" placeholder="Ort eingeben – z.B. München, Berlin, Wien, Zürich …" />
+  <button id="search-btn" onclick="startSearch()">🔍 Suchen</button>
+</div>
+<div id="status"></div>
+<div id="report"></div>
+
+<script>
+// ── Palette ──────────────────────────────────────────────────────────────────
+const C = {
+  page:   "#0d1117",
+  card:   "#161b22",
+  row:    "#1a2233",
+  header: "#1e3a5f",
+  title:  "#0d1f3c",
+  border: "#2a3f5a",
+  divid:  "#1e3a5f",
+  pri:    "#e6edf3",
+  sec:    "#8b949e",
+  min:    "#6e7681",
+  accent: "#58a6ff",
+  green:  "#3fb950",
+  pill:   "#79c0ff",
+  banner: "#060d18",
+};
+const BANNER_H = 280;
+
+// ── WMO codes (German) ───────────────────────────────────────────────────────
+const WMO = {
+  0:  ["Klarer Himmel",         "☀️"],
+  1:  ["Überwiegend klar",      "🌤️"],
+  2:  ["Teilweise bewölkt",     "⛅"],
+  3:  ["Bedeckt",               "☁️"],
+  45: ["Nebel",                 "🌫️"],
+  48: ["Gefrierender Nebel",    "🌫️"],
+  51: ["Leichter Nieselregen",  "🌦️"],
+  53: ["Nieselregen",           "🌦️"],
+  55: ["Starker Nieselregen",   "🌧️"],
+  61: ["Leichter Regen",        "🌧️"],
+  63: ["Regen",                 "🌧️"],
+  65: ["Starker Regen",         "🌧️"],
+  71: ["Leichter Schneefall",   "🌨️"],
+  73: ["Schneefall",            "❄️"],
+  75: ["Starker Schneefall",    "❄️"],
+  77: ["Schneekörner",          "🌨️"],
+  80: ["Leichte Schauer",       "🌦️"],
+  81: ["Schauer",               "🌦️"],
+  82: ["Heftige Schauer",       "⛈️"],
+  85: ["Leichte Schneeschauer", "🌨️"],
+  86: ["Starke Schneeschauer",  "❄️"],
+  95: ["Gewitter",              "⛈️"],
+  96: ["Gewitter mit Hagel",    "⛈️"],
+  99: ["Gewitter mit Hagel",    "⛈️"],
+};
+const wmoLabel = code => WMO[code] ?? ["Unbekannt", "🌡️"];
+
+// ── German date helpers ───────────────────────────────────────────────────────
+const DE_WD = ["Mo","Di","Mi","Do","Fr","Sa","So"];
+const DE_MO = ["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"];
+function fmtDe(s) {
+  // Parse as local date to avoid UTC offset shifting the day
+  const [y, m, d] = s.split("-").map(Number);
+  const date = new Date(y, m - 1, d);
+  const dayIdx = (date.getDay() + 6) % 7; // Mon=0 … Sun=6
+  return `${DE_WD[dayIdx]} ${date.getDate()}. ${DE_MO[date.getMonth()]}`;
+}
+
+// ── Wind helpers ──────────────────────────────────────────────────────────────
+const COMPASS = ["N","NNO","NO","ONO","O","OSO","SO","SSO","S","SSW","SW","WSW","W","WNW","NW","NNW"];
+const ARROWS8 = ["↑","↗","→","↘","↓","↙","←","↖"];
+const degToCompass = d => COMPASS[Math.round(d / 22.5) % 16];
+const degToArrow   = d => ARROWS8[Math.round(((d + 180) % 360) / 45) % 8];
+
+// ── Card fragments ────────────────────────────────────────────────────────────
+function precipHtml(prob, amt) {
+  const parts = [];
+  if (prob != null) parts.push(`${Math.round(prob)}%`);
+  if (amt  != null && amt > 0) parts.push(`${amt.toFixed(1)}mm`);
+  return parts.length
+    ? `<div style="font-size:10px;color:${C.pill};margin-top:2px;">💧 ${parts.join(" · ")}</div>`
+    : "";
+}
+
+function cardHourly(ts, temp, code, ws, wg, wd, prob, prec) {
+  const [desc, ico] = wmoLabel(code);
+  const hour = ts.length > 10 ? ts.slice(11, 16) : ts;
+  return `<td style="padding:7px 5px;text-align:center;vertical-align:top;
+    background-color:${C.card};border-radius:8px;width:105px;font-size:12px;
+    border:1px solid ${C.border};white-space:normal;">
+    <b style="color:${C.pri};font-size:13px;">${hour}</b>
+    <div style="font-size:30px;margin:3px 0;">${ico}</div>
+    <div style="font-size:10px;color:${C.sec};line-height:1.2;">${desc}</div>
+    <div style="font-size:17px;font-weight:bold;color:${C.pri};margin-top:3px;">${Math.round(temp)}°C</div>
+    ${precipHtml(prob, prec)}
+    <div style="font-size:14px;color:${C.accent};">${degToArrow(wd)}</div>
+    <div style="font-size:10px;color:${C.accent};font-weight:bold;">${degToCompass(wd)} ±15°</div>
+    <div style="font-size:10px;color:${C.green};">${Math.round(ws)}–${Math.round(wg)}&nbsp;km/h</div>
+  </td>`;
+}
+
+function cardDaily(dateStr, tmax, tmin, code, ws, wg, wd, prob, prec) {
+  const [desc, ico] = wmoLabel(code);
+  return `<td style="padding:7px 5px;text-align:center;vertical-align:top;
+    background-color:${C.card};border-radius:8px;width:105px;font-size:12px;
+    border:1px solid ${C.border};white-space:normal;">
+    <b style="color:${C.pri};font-size:11px;">${fmtDe(dateStr)}</b>
+    <div style="font-size:30px;margin:3px 0;">${ico}</div>
+    <div style="font-size:10px;color:${C.sec};line-height:1.2;">${desc}</div>
+    <div style="font-size:15px;font-weight:bold;color:${C.pri};margin-top:3px;">${Math.round(tmax)}°C</div>
+    <div style="font-size:11px;color:${C.min};">↓${Math.round(tmin)}°C</div>
+    ${precipHtml(prob, prec)}
+    <div style="font-size:14px;color:${C.accent};">${degToArrow(wd)}</div>
+    <div style="font-size:10px;color:${C.accent};font-weight:bold;">${degToCompass(wd)} ±15°</div>
+    <div style="font-size:10px;color:${C.green};">${Math.round(ws)}–${Math.round(wg)}&nbsp;km/h</div>
+  </td>`;
+}
+
+function dayPill(dateStr) {
+  return `<div style="font-size:12px;font-weight:bold;color:${C.pill};
+    background-color:${C.header};border-radius:5px;padding:3px 10px;
+    margin-top:8px;margin-bottom:4px;display:inline-block;">📅 ${fmtDe(dateStr)}</div>`;
+}
+function weekPill(label) {
+  return `<div style="font-size:12px;font-weight:bold;color:${C.pill};
+    background-color:${C.header};border-radius:5px;padding:3px 10px;
+    margin-top:8px;margin-bottom:4px;display:inline-block;">🗓 ${label}</div>`;
+}
+function scrollRow(tds) {
+  return `<div style="overflow-x:auto;-webkit-overflow-scrolling:touch;
+    border-radius:6px;border:1px solid ${C.border};padding:5px;background-color:${C.row};">
+    <table cellpadding="0" cellspacing="4"
+      style="border-collapse:separate;border-spacing:4px;width:max-content;">
+      <tr>${tds.join("")}</tr>
+    </table></div>`;
+}
+
+// ── Section heading helpers ───────────────────────────────────────────────────
+const sh  = txt => `<div style="font-size:15px;font-weight:bold;color:${C.pri};
+  border-bottom:2px solid ${C.divid};padding-bottom:6px;margin-bottom:6px;">${txt}</div>`;
+const sh2 = txt => `<div style="font-size:10px;color:${C.min};margin-bottom:6px;">${txt}</div>`;
+
+// ── Banner photo — Wikipedia JPG images (cities, landmarks, streets, quarters) ─
+const SKIP_RE = /flag|wappen|coat|logo|map|karte|seal|emblem|symbol|locator|relief|portrait|politician|icon|pictogram|badge/i;
+const VIEW_RE = /panorama|skyline|cityscape|stadtansicht|stadtbild|overview|aerial|innenstadt|altstadt|view|aussicht|ansicht|blick|landmark|sehenswürdigkeit|straße|street|gasse|platz|square|viertel|quarter|district|neighbourhood|stadtteil/i;
+// Plain name first — crucial for small villages that have no "panorama" files
+const COMMONS_QUERIES = (loc) => [
+  loc, `${loc} panorama`, `${loc} view`, `${loc} photo`,
+  `${loc} cityscape`, `${loc} landmark`, `${loc} street`,
+];
+
+// Fisher-Yates shuffle — returns a new shuffled array
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// One pageimages thumbnail — filtered, sized, reliable (no second request needed)
+async function wikiPageImage(lang, title) {
+  const url = `https://${lang}.wikipedia.org/w/api.php?action=query`
+    + `&titles=${encodeURIComponent(title)}`
+    + `&prop=pageimages&piprop=thumbnail&pithumbsize=1400`
+    + `&format=json&redirects=1&origin=*`;
+  const res  = await fetch(url);
+  const data = await res.json();
+  for (const page of Object.values(data?.query?.pages ?? {})) {
+    if ((page.pageid ?? -1) < 0) continue;
+    const src = page?.thumbnail?.source;
+    // Reject SVGs, flags, coats-of-arms etc.
+    if (src && /\.(jpg|jpeg|png)/i.test(src) && !SKIP_RE.test(src)) return src;
+  }
+  return null;
+}
+
+// Fetch imageinfo for a single file title
+async function wikiFileUrl(wiki, fileTitle) {
+  const url = `https://${wiki}/w/api.php?action=query`
+    + `&titles=${encodeURIComponent(fileTitle)}`
+    + `&prop=imageinfo&iiprop=url&iiurlwidth=1400&format=json&origin=*`;
+  const res   = await fetch(url);
+  const data  = await res.json();
+  for (const pg of Object.values(data?.query?.pages ?? {})) {
+    const ii  = pg?.imageinfo?.[0];
+    const src = ii?.thumburl || ii?.url;
+    if (src) return src;
+  }
+  return null;
+}
+
+
+async function fetchBannerPhoto(locationName) {
+  const city    = locationName.split(",")[0].trim();
+  const queries = city === locationName ? [city] : [city, locationName];
+
+  // 1. Wikipedia pageimages — en first (better photos), then de
+  for (const q of queries) {
+    for (const lang of ["en", "de"]) {
+      try {
+        const src = await wikiPageImage(lang, q);
+        if (src) { console.log(`Banner wiki/${lang}:`, src); return src; }
+      } catch {}
+    }
+  }
+
+  // 2. Wikimedia Commons search
+  for (const q of queries) {
+    for (const searchQ of COMMONS_QUERIES(q)) {
+      try {
+        const sp  = `https://commons.wikimedia.org/w/api.php?action=query&list=search`
+          + `&srsearch=${encodeURIComponent(searchQ)}&srnamespace=6&srlimit=10&format=json&origin=*`;
+        const res = await fetch(sp);
+        const hits = (await res.json())?.query?.search ?? [];
+        for (const hit of hits.filter(h => /\.(jpg|jpeg)$/i.test(h.title) && !SKIP_RE.test(h.title)).slice(0, 4)) {
+          try {
+            const src = await wikiFileUrl("commons.wikimedia.org", hit.title);
+            if (src) { console.log("Banner commons:", src); return src; }
+          } catch {}
+        }
+      } catch {}
+    }
+  }
+
+  console.warn("No banner found for:", locationName);
+  return null;
+}
+
+// ── Geocoding — Open-Meteo first, Nominatim fallback ─────────────────────────
+async function geocode(location) {
+  // 1. Open-Meteo (good for cities/towns)
+  try {
+    const p = new URLSearchParams({ name: location, count: 1, language: "de", format: "json" });
+    const res  = await fetch(`https://geocoding-api.open-meteo.com/v1/search?${p}`);
+    const data = await res.json();
+    const r = data?.results?.[0];
+    if (r) {
+      const name = [r.name, r.admin1, r.country].filter(Boolean).join(", ");
+      return { lat: r.latitude, lon: r.longitude, name };
+    }
+  } catch { /* fall through to Nominatim */ }
+
+  // 2. Nominatim/OSM — handles landmarks, streets, quarters, POIs
+  const p = new URLSearchParams({ q: location, format: "json", limit: 1, "accept-language": "de" });
+  const res  = await fetch(`https://nominatim.openstreetmap.org/search?${p}`,
+    { headers: { "User-Agent": "WetterVorschau/1.0" } });
+  const data = await res.json();
+  const r = data?.[0];
+  if (!r) throw new Error(`Ort nicht gefunden: ${location}`);
+  const name = r.display_name.split(",").slice(0, 3).join(", ");
+  return { lat: parseFloat(r.lat), lon: parseFloat(r.lon), name };
+}
+
+// ── Weather fetch ─────────────────────────────────────────────────────────────
+async function fetchWeather(lat, lon) {
+  const p = new URLSearchParams({
+    latitude: lat, longitude: lon,
+    hourly: [
+      "temperature_2m","weathercode","windspeed_10m",
+      "windgusts_10m","winddirection_10m","precipitation","precipitation_probability",
+    ].join(","),
+    daily: [
+      "weathercode","temperature_2m_max","temperature_2m_min",
+      "windspeed_10m_max","windgusts_10m_max","winddirection_10m_dominant",
+      "precipitation_sum","precipitation_probability_max",
+    ].join(","),
+    timezone: "auto", forecast_days: 14,
+    wind_speed_unit: "kmh", temperature_unit: "celsius",
+  });
+  const res = await fetch(`https://api.open-meteo.com/v1/forecast?${p}`);
+  if (!res.ok) throw new Error(`Wetter-API Fehler: ${res.status}`);
+  return res.json();
+}
+
+// ── HTML report ───────────────────────────────────────────────────────────────
+function buildReport(loc, weather, generatedAt, bannerSrc) {
+  const h  = weather.hourly ?? {};
+  const d  = weather.daily  ?? {};
+  const tz = weather.timezone ?? "UTC";
+
+  const times   = h.time                      ?? [];
+  const temps   = h.temperature_2m            ?? [];
+  const codes_h = h.weathercode               ?? [];
+  const ws_h    = h.windspeed_10m             ?? [];
+  const wg_h    = h.windgusts_10m             ?? [];
+  const wd_h    = h.winddirection_10m         ?? [];
+  const prob_h  = h.precipitation_probability ?? [];
+  const prec_h  = h.precipitation             ?? [];
+
+  // 72 h – group every 3rd entry by day
+  const days72h = {};
+  for (let i = 0; i < Math.min(73, times.length); i += 3) {
+    const ts = times[i], dk = ts.slice(0, 10);
+    (days72h[dk] ??= []).push(cardHourly(
+      ts,
+      temps[i]   ?? 0, parseInt(codes_h[i] ?? 0),
+      ws_h[i]    ?? 0, wg_h[i]   ?? 0, wd_h[i]   ?? 0,
+      prob_h[i]  ?? null, prec_h[i] ?? null,
+    ));
+  }
+  const hourlyHtml = Object.entries(days72h).slice(0, 3)
+    .map(([dk, tds]) => dayPill(dk) + scrollRow(tds)).join("");
+
+  // 14-day
+  const dd   = d.time                          ?? [];
+  const dc   = d.weathercode                   ?? [];
+  const dmax = d.temperature_2m_max            ?? [];
+  const dmin = d.temperature_2m_min            ?? [];
+  const dws  = d.windspeed_10m_max             ?? [];
+  const dwg  = d.windgusts_10m_max             ?? [];
+  const dwd  = d.winddirection_10m_dominant    ?? [];
+  const dpb  = d.precipitation_probability_max ?? [];
+  const dpc  = d.precipitation_sum             ?? [];
+
+  const allDaily = Array.from({ length: Math.min(14, dd.length) }, (_, i) =>
+    cardDaily(
+      dd[i],
+      dmax[i] ?? 0, dmin[i] ?? 0, parseInt(dc[i] ?? 0),
+      dws[i]  ?? 0, dwg[i]  ?? 0, dwd[i]  ?? 0,
+      dpb[i]  ?? null, dpc[i] ?? null,
+    )
+  );
+
+  let dailyHtml = "";
+  for (let ci = 0; ci < 2; ci++) {
+    const start = ci * 7;
+    const chunk = allDaily.slice(start, start + 7);
+    if (!chunk.length) break;
+    const w1 = dd[start]                          ? fmtDe(dd[start])                          : "";
+    const w2 = dd[Math.min(start + 6, dd.length - 1)] ? fmtDe(dd[Math.min(start + 6, dd.length - 1)]) : "";
+    dailyHtml += weekPill(`Woche ${ci + 1}: ${w1} – ${w2}`) + scrollRow(chunk);
+  }
+
+  const bannerHtml = bannerSrc
+    ? `<div style="width:100%;height:${BANNER_H}px;overflow:hidden;background-color:${C.banner};">
+        <img src="${bannerSrc}" alt="${loc.name}"
+          style="width:100%;height:${BANNER_H}px;object-fit:cover;object-position:center;display:block;">
+       </div>`
+    : `<div style="background:linear-gradient(135deg,#0d1f3c 0%,#1a3a6b 60%,#0d2a4a 100%);
+        width:100%;height:${BANNER_H}px;display:flex;align-items:center;justify-content:center;
+        font-family:Arial,sans-serif;color:${C.pri};font-size:22px;font-weight:bold;">
+        📍 ${loc.name}</div>`;
+
+  return `
+<table width="100%" cellpadding="0" cellspacing="0" border="0"
+  style="background-color:${C.page};width:100%;">
+
+  <!-- Banner -->
+  <tr><td style="padding:0;overflow:hidden;line-height:0;font-size:0;
+    height:${BANNER_H}px;background-color:${C.banner};">${bannerHtml}</td></tr>
+
+  <!-- Title bar -->
+  <tr><td style="background-color:${C.title};padding:14px 20px;border-bottom:1px solid ${C.divid};">
+    <div style="color:${C.pri};font-size:20px;font-weight:bold;">📍 Wetterbericht: ${loc.name}</div>
+    <div style="color:${C.sec};font-size:11px;margin-top:3px;">
+      ${loc.lat.toFixed(4)}°N, ${loc.lon.toFixed(4)}°O &nbsp;·&nbsp;
+      Zeitzone: ${tz} &nbsp;·&nbsp; Stand: ${generatedAt}
+    </div>
+  </td></tr>
+
+  <!-- 72-hour section -->
+  <tr><td style="padding:18px 16px 10px;background-color:${C.page};">
+    ${sh(`⏱ 72-Stunden-Vorhersage <span style="font-size:11px;font-weight:normal;color:${C.sec};">(3h-Intervalle, ein Tag pro Zeile)</span>`)}
+    ${sh2(`Windrichtung ±15° Modellstreuung &nbsp;·&nbsp; Windstärke: mittlere – Böen (km/h) &nbsp;·&nbsp; 💧 Niederschlagswahrscheinlichkeit &amp; -menge`)}
+    ${hourlyHtml}
+  </td></tr>
+
+  <!-- 14-day section -->
+  <tr><td style="padding:10px 16px 20px;background-color:${C.page};">
+    ${sh(`📅 14-Tage-Vorhersage <span style="font-size:11px;font-weight:normal;color:${C.sec};">(täglich, eine Woche pro Zeile)</span>`)}
+    ${sh2(`Windrichtung ±15° Modellstreuung &nbsp;·&nbsp; Max. Windstärke: mittlere – Böen (km/h) &nbsp;·&nbsp; 💧 Niederschlag täglich`)}
+    ${dailyHtml}
+  </td></tr>
+
+  <!-- Footer -->
+  <tr><td style="background-color:${C.title};padding:8px 16px;border-top:1px solid ${C.divid};">
+    <div style="font-size:10px;color:${C.min};text-align:center;">
+      Wetterdaten: <a href="https://open-meteo.com/" style="color:${C.accent};">Open-Meteo</a>
+      &nbsp;·&nbsp; Windrichtungsungenauigkeit: ±15° Modellstreuung
+    </div>
+  </td></tr>
+
+</table>`;
+}
+
+// ── Main search flow ──────────────────────────────────────────────────────────
+async function startSearch() {
+  const input  = document.getElementById("location-input");
+  const status = document.getElementById("status");
+  const report = document.getElementById("report");
+  const btn    = document.getElementById("search-btn");
+  const location = input.value.trim();
+  if (!location) return;
+
+  btn.disabled = true;
+  report.innerHTML = "";
+
+  try {
+    status.textContent = "🔍 Suche Standort…";
+    const loc = await geocode(location);
+
+    status.textContent = `📡 Lade Wetterdaten für ${loc.name}…`;
+    const [weather, bannerSrc] = await Promise.all([
+      fetchWeather(loc.lat, loc.lon),
+      fetchBannerPhoto(loc.name),
+    ]);
+
+    const now = new Date();
+    const generatedAt = now.toLocaleString("de-DE", {
+      day: "2-digit", month: "2-digit", year: "numeric",
+      hour: "2-digit", minute: "2-digit", timeZoneName: "short",
+    });
+
+    status.textContent = "";
+    report.innerHTML = buildReport(loc, weather, generatedAt, bannerSrc);
+  } catch (err) {
+    status.textContent = `❌ Fehler: ${err.message}`;
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+// Allow Enter key in the search field
+document.getElementById("location-input").addEventListener("keydown", e => {
+  if (e.key === "Enter") startSearch();
+});
+
+// ── Auto-start: browser geolocation → reverse geocode, fallback to Shanghai ──
+async function reverseGeocode(lat, lon) {
+  const p = new URLSearchParams({ lat, lon, format: "json", "accept-language": "de", zoom: 10 });
+  const res  = await fetch(`https://nominatim.openstreetmap.org/reverse?${p}`,
+    { headers: { "User-Agent": "WetterVorschau/1.0" } });
+  const data = await res.json();
+  // Prefer city/town/village/suburb, fall back to first 3 parts of display_name
+  const a = data?.address ?? {};
+  const name = a.city || a.town || a.village || a.suburb || a.county
+    || data?.display_name?.split(",").slice(0, 2).join(", ")
+    || "Shanghai";
+  return name;
+}
+
+async function autoDetectLocation() {
+  const input  = document.getElementById("location-input");
+  const status = document.getElementById("status");
+
+  if (!navigator.geolocation) {
+    input.value = "Shanghai";
+    startSearch();
+    return;
+  }
+
+  status.textContent = "📍 Ermittle Standort…";
+  navigator.geolocation.getCurrentPosition(
+    async pos => {
+      try {
+        const name = await reverseGeocode(pos.coords.latitude, pos.coords.longitude);
+        input.value = name;
+      } catch {
+        input.value = "Shanghai";
+      }
+      startSearch();
+    },
+    () => {
+      // Denied or unavailable
+      input.value = "Shanghai";
+      startSearch();
+    },
+    { timeout: 8000 }
+  );
+}
+
+autoDetectLocation();
+</script>
+</body>
+</html>

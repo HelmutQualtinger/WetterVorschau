@@ -1,0 +1,45 @@
+{
+  "skill_name": "weather-report",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Generate a weather report for Munich, Germany and create a Gmail draft.",
+      "expected_output": "A Gmail draft is created with subject 'Weather Report: Munich, Bavaria, Germany'. The HTML body contains a 72-hour forecast (24 cards, 3-hour intervals) and a 14-day forecast (14 cards). Each card shows temperature, wind speed/direction, and weather icon. The banner image is embedded via data URI.",
+      "files": [],
+      "expectations": [
+        "Python script runs without error",
+        "Gmail draft is created via the MCP tool",
+        "Draft subject contains 'Munich'",
+        "HTML includes 72-hour section with 3-hour interval cards",
+        "HTML includes 14-day section with daily cards",
+        "Each card contains wind direction and speed range",
+        "Banner image is present (data URI or placeholder)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I need to send a weather forecast email for Tokyo to my team. Can you prepare that?",
+      "expected_output": "A Gmail draft is created for Tokyo with subject 'Weather Report: Tokyo, Tokyo, Japan' (or similar). The HTML report shows correct forecasts with Japanese timezone. Wind data and map image are included.",
+      "files": [],
+      "expectations": [
+        "Python script resolves Tokyo correctly",
+        "Gmail draft is created",
+        "Draft subject contains 'Tokyo'",
+        "HTML includes both 72h and 14-day sections",
+        "Location name in the report header matches Tokyo"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Weather report for New York please",
+      "expected_output": "A Gmail draft is created for New York. The report resolves to 'New York City' or similar. Both forecast sections are present with correct data.",
+      "files": [],
+      "expectations": [
+        "Python script resolves New York correctly",
+        "Gmail draft created with subject containing 'New York'",
+        "HTML contains forecast data",
+        "Wind direction arrows are rendered as SVG elements in the HTML"
+      ]
+    }
+  ]
+}
